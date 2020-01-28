@@ -12,8 +12,12 @@
         <div class="link-btn">Manager</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
-        <a href class="btn-class">Button</a>
-        <el-dropdown>
+        <a v-if="isSign" href class="btn-class">Button</a>
+        <router-link v-if="!isSign" to="/personel">
+          <a class="kgfd-btn kgfd-btn-link" href="Javascript:void(0);">Login</a>
+        </router-link>
+
+        <el-dropdown v-if="isSign">
           <span class="el-dropdown-link">
             Options
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -22,10 +26,42 @@
             <el-dropdown-item icon="el-icon-plus">Action 1</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+        <a
+          v-if="isSign"
+          v-on:click="logout()"
+          class="kgfd-btn kgfd-btn-link"
+          href="Javascript:void(0);"
+        >Log Out</a>
       </div>
     </div>
   </div>
 </template>
+<script>
+import { serverBus } from "../../main";
+export default {
+  data() {
+    return {
+      isSign: false,
+      mystyle: {
+        display: "block",
+        cursor: "pointer"
+      }
+    };
+  },
+  methods: {
+    logout() {
+      serverBus.$emit("mystyle", this.mystyle.display);
+      this.mystyle.display = "none";
+      this.isSign = false;
+    }
+  },
+  mounted() {
+    serverBus.$on("isSign", isSign => {
+      this.isSign = isSign;
+    });
+  }
+};
+</script>
 <style scoped>
 .kgfd-header {
   background: #ffffff;

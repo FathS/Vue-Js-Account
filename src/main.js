@@ -4,6 +4,7 @@ import router from './router/index.js'
 import axios from 'axios'
 import Element from 'element-ui'
 
+export const serverBus = new Vue();
 
 const axiosInstance = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com/"
