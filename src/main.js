@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router/index.js'
 import axios from 'axios'
 import Element from 'element-ui'
+import Vuelidate from 'vuelidate'
 
 export const serverBus = new Vue();
 
@@ -27,6 +28,7 @@ import './assets/Css/kgfd-theme.css'
 
 
 Vue.use(Element)
+Vue.use(Vuelidate)
 
 
 

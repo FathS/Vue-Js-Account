@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import TodosList from '../components/Personel/List.vue'
 import TodosDetail from '../components/Personel/update.vue'
-import Personel from '../components/Personel/personel.vue'
+import Login from '../components/Personel/login.vue'
 
 Vue.use(Router)
 
@@ -15,8 +15,8 @@ export default new Router({
       component: TodosList
     },
     {
-      path: '/personel',
-      component: Personel
+      path: '/login',
+      component: Login
     },
     {
       path: '/:id/edit',

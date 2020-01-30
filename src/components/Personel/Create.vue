@@ -121,7 +121,8 @@ export default {
     },
     createUser(contact) {
       const url = "http://localhost:1256/Home/Add/";
-      return this.$axios.post(url, contact);
+      this.$axios.post(url, contact);
+      this.refresh;
     },
     keyupEvent() {
       this.$emit("selectedComponent", this.changeComp);
@@ -138,6 +139,11 @@ export default {
         .then(response => {
           this.managerList = response.data;
         });
+    }
+  },
+  computed: {
+    refresh() {
+      window.location.reload();
     }
   }
 };

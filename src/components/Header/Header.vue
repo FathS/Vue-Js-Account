@@ -5,15 +5,13 @@
         <router-link to="/" active-class="active" exact>
           <div class="link-btn">Home</div>
         </router-link>
-        <router-link to="/personel" active-class="active">
-          <div class="link-btn">Personel</div>
-        </router-link>
+        
         <div class="link-btn">City</div>
         <div class="link-btn">Manager</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
         <a v-if="isSign" href class="btn-class">Button</a>
-        <router-link v-if="!isSign" to="/personel">
+        <router-link v-if="!isSign" to="/login" active-class="active">
           <a class="kgfd-btn kgfd-btn-link" href="Javascript:void(0);">Login</a>
         </router-link>
 

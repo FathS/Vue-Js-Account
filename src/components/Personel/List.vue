@@ -26,7 +26,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in todosList" v-bind:key="item">
+              <tr v-for="item in todosList" v-bind:key="item" v-on:click="serverSelected()">
                 <td>{{item.name}}</td>
                 <td>{{item.surname}}</td>
                 <td>{{item.manager}}</td>
@@ -67,6 +67,7 @@ div.card {
 </style>
 <script>
 import userCreate from "./Create.vue";
+import Detail from "./detail.vue";
 export default {
   data() {
     return {
