@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import TodosList from '../components/Personel/List.vue'
 import TodosDetail from '../components/Personel/update.vue'
-import Login from '../components/Personel/login.vue'
+import Register from '../components/Personel/register.vue'
+import Login from '../components/Account/login.vue'
+import Home from '../components/Home.vue'
 
 Vue.use(Router)
 
@@ -12,7 +14,21 @@ export default new Router({
     {
       path: '',
       name: 'home',
-      component: TodosList
+      component: Home
+    },
+    {
+      path: '/Todoslist',
+      name: 'todoslist',
+      component: TodosList,
+      meta: {
+        public: false,  // Allow access to even if not logged in
+        onlyWhenLoggedOut: true
+      }
+
+    },
+    {
+      path: '/register',
+      component: Register
     },
     {
       path: '/login',
@@ -24,7 +40,7 @@ export default new Router({
       component: TodosDetail
     },
     { path: '/', redirect: { name: 'home' } },
-    { path: '*', redirect: '/' }
+    { path: '*', redirect: { name: 'home' } }
 
   ]
 })

@@ -361,6 +361,7 @@ body {
     font-size: 14px;
     font-weight: 400;
     display: inline-block;
+    cursor: pointer;
 }
 .kgfd-formbox .kgfd-form-input
  {
@@ -534,7 +535,7 @@ a.kgfd-btn {
 .kgfd-btn.kgfd-disabled,
 .kgfd-btn-ghost:disabled,
 .kgfd-btn-ghost.kgfd-disabled {
-    cursor: not-allowed;
+    cursor: not-allowed !important;
 }
 /* button group */
 .kgfd-btn-group {

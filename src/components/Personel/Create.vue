@@ -2,9 +2,15 @@
   <div>
     <div class="kgfd-row">
       <div class="kgfd-col kgfd-col-6">
-        <div class="kgfd-formbox">
+        <div class="kgfd-formbox" :class="{invalid: $v.contact.name.$error}">
           <label>Name</label>
-          <input type="text" class="kgfd-form-input" v-model="contact.name" />
+          <input
+            @input="$v.contact.name.$touch()"
+            type="text"
+            class="kgfd-form-input"
+            v-model="contact.name"
+          />
+          <div v-if="!$v.contact.name.minLen">İsim en az 5 karakter olmalıdır</div>
         </div>
       </div>
       <div class="kgfd-col kgfd-col-6">
@@ -81,19 +87,37 @@
             v-on:click="keyupEvent(changeComp)"
             class="kgfd-btn kgfd-btn-link"
           >İptal</a>
-          <a
-            href="JavaScript:Void(0);"
+          <button
             @click="createUser(contact)"
+            type="submit"
             class="kgfd-btn kgfd-btn-success"
-          >Kaydet</a>
+          >Kaydet</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {
+  required,
+  email,
+  numeric,
+  minValue,
+  minLength,
+  sameAs,
+  requiredUnless
+} from "vuelidate/lib/validators";
 export default {
   //   props: ["parentMessage"],
+
+  validations: {
+    contact: {
+      name: {
+        required,
+        minLen: minLength(5)
+      }
+    }
+  },
 
   data() {
     return {
@@ -112,6 +136,10 @@ export default {
     };
   },
   created: function() {
+    // setTimeout(function() {
+    //   alert("Sayfa yenilendi");
+    //   window.location.reload(1);
+    // }, 5000);
     this.GetCityList();
     this.getManagerList();
   },
@@ -122,7 +150,7 @@ export default {
     createUser(contact) {
       const url = "http://localhost:1256/Home/Add/";
       this.$axios.post(url, contact);
-      this.refresh;
+      window.location.pathname({ name: todoslist });
     },
     keyupEvent() {
       this.$emit("selectedComponent", this.changeComp);
@@ -148,3 +176,12 @@ export default {
   }
 };
 </script>
+<style scoped>
+.invalid input {
+  border: 1px solid red !important;
+  background-color: #ffc9aa;
+}
+.invalid label {
+  color: red !important;
+}
+</style>

@@ -5,12 +5,18 @@
         <router-link to="/" active-class="active" exact>
           <div class="link-btn">Home</div>
         </router-link>
-        
-        <div class="link-btn">City</div>
-        <div class="link-btn">Manager</div>
+        <router-link v-if="isSign" to="/Todoslist" active-class="active">
+          <div class="link-btn">Todoslist</div>
+        </router-link>
+
+        <div v-if="isSign" class="link-btn">City</div>
+        <div v-if="isSign" class="link-btn">Manager</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
         <a v-if="isSign" href class="btn-class">Button</a>
+        <router-link v-if="!isSign" to="/register" active-class="active">
+          <a class="kgfd-btn kgfd-btn-link" href="Javascript:void(0);">Register</a>
+        </router-link>
         <router-link v-if="!isSign" to="/login" active-class="active">
           <a class="kgfd-btn kgfd-btn-link" href="Javascript:void(0);">Login</a>
         </router-link>
@@ -43,7 +49,8 @@ export default {
       mystyle: {
         display: "block",
         cursor: "pointer"
-      }
+      },
+      form: true
     };
   },
   methods: {
@@ -51,6 +58,8 @@ export default {
       serverBus.$emit("mystyle", this.mystyle.display);
       this.mystyle.display = "none";
       this.isSign = false;
+      serverBus.$emit("form", this.form);
+      return this.$router.push("/login");
     }
   },
   mounted() {
@@ -68,7 +77,7 @@ export default {
 .active {
   background-color: #86bde2;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 12px 20px;
 }
 .link-btn {
   padding: 10px 10px;

@@ -100,6 +100,7 @@ export default {
         const url = "http://localhost:1256/Home/Delete/" + id;
         this.$axios.post(url);
         window.alert("Kayıt Silindi!");
+        window.location.reload();
       } else {
         window.alert("İşlem İptal Edildi.");
       }

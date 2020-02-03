@@ -3,6 +3,7 @@
     <div class="container">
       <div class="kgfd-row">
         <!-- {{todosList.id}} -->
+
         <div class="kgfd-col kgfd-col-3">
           <div class="kgfd-formbox">
             <label>Name</label>
@@ -72,13 +73,12 @@
       <div class="kgfd-row">
         <div class="kgfd-col kgfd-col-3">
           <div class="kgfd-formbox">
-            <router-link to="/">
-              <a
-                href="JavaScript:Void(0);"
-                @click="updateUser(todosList)"
-                class="kgfd-btn kgfd-btn-success"
-              >Kaydet</a>
-            </router-link>
+            <button
+              type="submit"
+              href="JavaScript:Void(0);"
+              @click="updateUser(todosList)"
+              class="kgfd-btn kgfd-btn-success"
+            >Kaydet</button>
           </div>
         </div>
       </div>
@@ -131,7 +131,8 @@ export default {
     },
     updateUser(todosList) {
       const url = "http://localhost:1256/Home/Update/" + this.$route.params.id;
-      return this.$axios.put(url, todosList);
+      this.$axios.put(url, todosList);
+      return this.$router.push({ name: "todoslist" });
     }
   }
 };

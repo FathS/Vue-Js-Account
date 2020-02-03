@@ -1,104 +1,126 @@
 <template>
   <div class="kgfd">
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-12">
-        <h1>Login</h1>
-      </div>
-      <div id="signup" class="kgfd-col kgfd-col-12">
-        <form @submit.prevent="onSubmit">
+      <div class="kgfd-col kgfd-col-12"></div>
+      <div v-if="form" id="signup" class="kgfd-col kgfd-col-6">
+        <form @submit.prevent="register(user)">
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
+            <div class="kgfd-col kgfd-col-6">
+              <h1>Kayıt Ol</h1>
+              <br />
               <div class="kgfd-formbox">
                 <label for>Name</label>
                 <input type="text" class="kgfd-form-input" id="name" v-model="user.name" />
+                <span class="warning-star">*</span>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
+            <div class="kgfd-col kgfd-col-6">
               <div class="kgfd-formbox">
                 <label for>Surname</label>
                 <input type="text" class="kgfd-form-input" id="surname" v-model="user.surname" />
+                <span class="warning-star">*</span>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
-              <div class="kgfd-formbox" :class="{invalid: $v.email.$error}">
+            <div class="kgfd-col kgfd-col-6">
+              <div class="kgfd-formbox" :class="{invalid: $v.user.email.$error}">
                 <label for>E-mail</label>
                 <input
                   type="email"
                   class="kgfd-form-input"
                   id="email"
-                  @input="$v.email.$touch()"
-                  v-model="email"
+                  @input="$v.user.email.$touch()"
+                  v-model="user.email"
                   title="Lütfen Geçerli Mail Adresi Giriniz"
                 />
-                <div v-if="!$v.email.email">Lütfen Geçerli Mail Adresi Giriniz</div>
-                <p v-if="!$v.email.required">
+                <div v-if="!$v.user.email.email">Lütfen Geçerli Mail Adresi Giriniz</div>
+                <p v-if="!$v.user.email.required">
                   <span class="warning-star">*</span>
                 </p>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
-              <div class="kgfd-formbox" :class="{invalid: $v.age.$error}">
+            <div class="kgfd-col kgfd-col-6">
+              <div class="kgfd-formbox" :class="{invalid: $v.user.age.$error}">
                 <label for>Age</label>
                 <input
                   type="number"
                   class="kgfd-form-input"
                   id="number"
-                  @input="$v.age.$touch()"
-                  v-model.number="age"
+                  @input="$v.user.age.$touch()"
+                  v-model.number="user.age"
                 />
                 <p
-                  v-if="!$v.age.minVal"
-                >Your Have To Be At Least {{$v.age.$params.minVal.min}} years old</p>
+                  v-if="!$v.user.age.minVal"
+                >Your Have To Be At Least {{$v.user.age.$params.minVal.min}} years old</p>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
-              <div class="kgfd-formbox" :class="{invalid: $v.password.$error}">
+            <div class="kgfd-col kgfd-col-6">
+              <div class="kgfd-formbox" :class="{invalid: $v.user.password.$error}">
                 <label for>Password</label>
                 <input
                   :type="type"
                   class="kgfd-form-input"
                   id="password"
-                  v-model="password"
-                  @blur="$v.password.$touch()"
+                  v-model="user.password"
+                  @blur="$v.user.password.$touch()"
                 />
                 <a @click="ShowPassword()" class="showhidebtn" v-html="btn"></a>
-                <div v-if="!$v.password.minLen">Paraola en az 8 karakter olmalıdır</div>
+                <div v-if="!$v.user.password.minLen">Paraola en az 8 karakter olmalıdır</div>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
-              <div class="kgfd-formbox" :class="{invalid: $v.confirmPassword.$error}">
+            <div class="kgfd-col kgfd-col-6">
+              <div class="kgfd-formbox" :class="{invalid: $v.user.confirmPassword.$error}">
                 <label for>Confirm Password</label>
                 <input
                   :type="type"
                   class="kgfd-form-input"
                   id="confirmPassword"
-                  v-model="confirmPassword"
-                  @input="$v.confirmPassword.$touch()"
+                  v-model="user.confirmPassword"
+                  @input="$v.user.confirmPassword.$touch()"
                 />
                 <a @click="ShowPassword()" class="showhidebtn" v-html="btn"></a>
-                <div v-if="!$v.confirmPassword.sameAs">Parola Eşleşmedi</div>
+                <div v-if="!$v.user.confirmPassword.sameAs">Parola Eşleşmedi</div>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
+            <div class="kgfd-col kgfd-col-6">
+              <div class="kgfd-formbox-check" :class="{invalid: $v.terms.$error}">
+                <input type="checkbox" id="terms" @change="$v.terms.$touch()" v-model="terms" />
+                <label for="terms">Okudum, Onaylıyorum.</label>
+              </div>
+            </div>
+          </div>
+          <div class="kgfd-row">
+            <div class="kgfd-col kgfd-col-6">
+              <div class="kgfd-formbox">
+                <button
+                  type="submit"
+                  :disabled="$v.$invalid"
+                  v-bind:style="{display: mystyle.display, cursor: mystyle.cursor}"
+                  class="kgfd-btn kgfd-btn-success"
+                >Kayıt Ol</button>
+              </div>
+            </div>
+          </div>
+          <div class="kgfd-row">
+            <div class="kgfd-col kgfd-col-6">
               <div class="kgfd-formbox">
                 <Button @click="addAlan()" class="kgfd-btn kgfd-btn-primary">Alan Ekle</Button>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
+            <div class="kgfd-col kgfd-col-6">
               <div class="kgfd-formbox" v-for="(input, index) in inputs" :key="input.id">
                 <label :for="input.id">Alan</label>
                 <input
@@ -114,32 +136,10 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
-              <div class="kgfd-formbox" :class="{invalid: $v.terms.$invalid}">
-                <input
-                  type="checkbox"
-                  style="width:0%;"
-                  id="terms"
-                  @change="$v.terms.$touch()"
-                  v-model="terms"
-                />
-                <label style="display:inline-block;" for="terms">Accept Terms of Use</label>
-              </div>
-            </div>
-          </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-2">
-              <div class="kgfd-formbox">
-                <button
-                  v-on:click="login(user)"
-                  v-bind:style="{display: mystyle.display, cursor: mystyle.cursor}"
-                  class="kgfd-btn kgfd-btn-success"
-                >Giriş Yap</button>
-              </div>
-            </div>
-          </div>
         </form>
+      </div>
+      <div class="kgfd-col kgfd-col-6">
+        <images />
       </div>
     </div>
     <transition name="fade">
@@ -153,20 +153,22 @@
 </template>
 <script>
 import { serverBus } from "../../main";
-import Alert from "../Alert/alert.vue";
+import images from "../Image/image.vue";
 import {
   required,
   email,
   numeric,
   minValue,
   minLength,
-  sameAs
+  sameAs,
+  requiredUnless
 } from "vuelidate/lib/validators";
 const eye = '<i class="fa fa-eye" aria-hidden="true"></i>';
 const eyeSlash = '<i class="fa fa-eye-slash" aria-hidden="true"></i>';
 export default {
   data() {
     return {
+      form: true,
       hobby: "",
       btn: eye,
       type: "password",
@@ -176,64 +178,78 @@ export default {
         display: "block",
         cursor: "pointer"
       },
-      email: "",
-      age: "",
-      password: "",
-      confirmPassword: "",
+
       user: {
         name: "",
-        surname: ""
+        surname: "",
+        email: "",
+        age: "",
+        password: "",
+        confirmPassword: ""
       },
       btnuser: "",
       color: "",
       btndisplay: "",
       inputs: [],
-      terms:false
+      terms: false
     };
   },
   validations: {
-    email: {
-      required,
-      email
-    },
-    age: {
-      required,
-      numeric,
-      minVal: minValue(18)
-    },
-    password: {
-      required,
-      minLen: minLength(8)
-    },
-    confirmPassword: {
-      // sameAs: sameAs('password')
-      sameAs: sameAs(x => {
-        return x.password;
-      })
+    user: {
+      email: {
+        required,
+        email
+      },
+      age: {
+        required,
+        numeric,
+        minVal: minValue(18)
+      },
+      password: {
+        required,
+        minLen: minLength(8)
+      },
+      confirmPassword: {
+        // sameAs: sameAs('password')
+        sameAs: sameAs(x => {
+          return x.password;
+        })
+      }
     },
     terms: {
-      required
+      required: requiredUnless(vm => {
+        return false;
+      })
     }
   },
   methods: {
-    login(user) {
-      if (user.name == "" || user.surname == "") {
-        this.btnuser = "Hatalı Giriş";
-        this.show = false;
-        this.timerAlert();
-      } else {
-        serverBus.$emit("isSign", this.isSign);
-        this.successLogin(user);
-      }
+    register(user) {
+      const url = "http://localhost:1256/Home/Register/";
+      const response = this.$axios
+        .post(url, user)
+        .then(request => this.$router.push("/login"))
+        .catch(error => {
+          window.alert(error.message);
+        });
+
+        
+      // if (user.name == "" || user.surname == "") {
+      //   this.btnuser = "Hatalı Giriş";
+      //   this.show = false;
+      //   this.timerAlert();
+      // } else {
+      //   serverBus.$emit("isSign", this.isSign);
+      //   this.successLogin(user);
+      //   this.form = false;
+      //   this.$router.push({ name: "todoslist" });
+      // }
     },
     successLogin(user) {
       this.btnuser = "Hoş Geldin" + " " + user.name + " " + user.surname;
       this.show = false;
       this.color = "green";
       this.mystyle.display = "none";
-      setTimeout(() => {
-        this.btndisplay = "none";
-      }, 3000);
+      this.timerAlert();
     },
     timerAlert() {
       setTimeout(() => {
@@ -264,9 +280,12 @@ export default {
     serverBus.$on("mystyle", mystyle => {
       this.mystyle.display = mystyle.display;
     });
+    serverBus.$on("form", form => {
+      this.form = form;
+    });
   },
   components: {
-    appAlert: Alert
+    images
   }
 };
 </script>
@@ -312,15 +331,35 @@ export default {
   position: absolute;
   top: 35px;
   right: 5px;
-  color: red;
+  color: #b30505;
   cursor: pointer;
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
 }
 .warning-star:hover::after {
-  content: " Lütfen Bu Alanı Doldurun!";
+  content: "Boş Bırakılamaz!";
   position: absolute;
-  top: -30px;
-  left: -170px;
-  color: red;
+  top: -50px;
+  left: -150px;
+  color: #b30505;
+  font-weight: bold;
+  background-color: #ffffff;
+  /* box-shadow: 0px 0px 7px 15px #e6dfdf; */
+  border-radius: 6px;
+  line-height: normal;
+  padding: 10px 15px 15px 15px;
+  letter-spacing: 1px;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 80%,
+    75% 85%,
+    65% 100%,
+    50% 80%,
+    0% 80%
+  );
 }
 .showhidebtn,
 .deleteinput {
