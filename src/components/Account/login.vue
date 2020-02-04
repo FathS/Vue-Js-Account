@@ -48,6 +48,9 @@ export default {
         email: "",
         password: ""
       },
+      id: null,
+      surname: "",
+
       error: false,
       isSign: true,
 
@@ -63,7 +66,10 @@ export default {
       const url = "http://localhost:1256/Home/Login/";
       this.$axios
         .post(url, user)
-        .then(request => this.loginSuccessful())
+        .then(response => {
+          this.id = response.data.id;
+          this.loginSuccessful();
+        })
         .catch(() => this.loginFailed());
     },
     loginSuccessful() {
@@ -79,13 +85,7 @@ export default {
       this.btnLogin = "Hatalı Giriş";
       delete localStorage.token;
     },
-    successLogin(user) {
-      this.btnLogin = "Hoş Geldin" + " " + user.name + " " + user.surname;
-      this.show = false;
-      this.color = "green";
-      this.mystyle.display = "none";
-      this.timerAlert();
-    },
+
     timerAlert() {
       setTimeout(() => {
         this.btndisplay = "none";
@@ -100,6 +100,14 @@ export default {
     serverBus.$on("form", form => {
       this.form = form;
     });
+  },
+  created() {
+    this.$store.dispatch("addDataAction", this.id);
+  },
+  computed: {
+    getId() {
+      return this.$store.getters.getAddedUserId;
+    }
   }
 };
 </script>

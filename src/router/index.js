@@ -4,6 +4,7 @@ import TodosList from '../components/Personel/List.vue'
 import TodosDetail from '../components/Personel/update.vue'
 import Register from '../components/Personel/register.vue'
 import Login from '../components/Account/login.vue'
+import ChangePassword from '../components/Account/changePassword.vue'
 import Home from '../components/Home.vue'
 
 Vue.use(Router)
@@ -33,6 +34,11 @@ export default new Router({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/ChangePassword',
+      name: 'change',
+      component: ChangePassword
     },
     {
       path: '/:id/edit',

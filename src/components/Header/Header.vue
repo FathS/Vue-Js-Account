@@ -23,11 +23,13 @@
 
         <el-dropdown v-if="isSign">
           <span class="el-dropdown-link">
-            Options
+            Ayarlar
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-plus">Action 1</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-plus">
+              <router-link to="/ChangePassword">Şifre Değiştir</router-link>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <a
@@ -50,7 +52,8 @@ export default {
         display: "block",
         cursor: "pointer"
       },
-      form: true
+      form: true,
+      id: null
     };
   },
   methods: {
