@@ -78,17 +78,17 @@
           </div>
           <div class="kgfd-row">
             <div class="kgfd-col kgfd-col-6">
-              <div class="kgfd-formbox" :class="{invalid: $v.user.confirmPassword.$error}">
+              <div class="kgfd-formbox" :class="{invalid: $v.user.confirPassword.$error}">
                 <label for>Confirm Password</label>
                 <input
                   :type="type"
                   class="kgfd-form-input"
                   id="confirmPassword"
-                  v-model="user.confirmPassword"
-                  @input="$v.user.confirmPassword.$touch()"
+                  v-model="user.confirPassword"
+                  @input="$v.user.confirPassword.$touch()"
                 />
                 <a @click="ShowPassword()" class="showhidebtn" v-html="btn"></a>
-                <div v-if="!$v.user.confirmPassword.sameAs">Parola Eşleşmedi</div>
+                <div v-if="!$v.user.confirPassword.sameAs">Parola Eşleşmedi</div>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default {
         email: "",
         age: "",
         password: "",
-        confirmPassword: ""
+        confirPassword: ""
       },
       btnuser: "",
       color: "",
@@ -209,7 +209,7 @@ export default {
         required,
         minLen: minLength(8)
       },
-      confirmPassword: {
+      confirPassword: {
         // sameAs: sameAs('password')
         sameAs: sameAs(x => {
           return x.password;
