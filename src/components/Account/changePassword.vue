@@ -57,7 +57,8 @@ export default {
       user: {
         oldPassword: "",
         password: "",
-        confirPassword: ""
+        confirPassword: "",
+        id: this.$store.state.id
       }
     };
   },
@@ -68,6 +69,8 @@ export default {
         .post(url, user)
         .then(request => {
           console.log(request);
+          window.alert("Şifreniz Güncellenmiştir.");
+          this.$router.push("/");
         })
         .catch(() => this.loginFailed());
     }

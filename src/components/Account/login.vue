@@ -48,12 +48,9 @@ export default {
         email: "",
         password: ""
       },
-      id: null,
       surname: "",
-
       error: false,
       isSign: true,
-
       btnLogin: "",
       mystyle: {
         display: "block",
@@ -67,7 +64,8 @@ export default {
       this.$axios
         .post(url, user)
         .then(response => {
-          this.id = response.data.id;
+          console.log(response);
+          this.$store.state.id = response.data.id;
           this.loginSuccessful();
         })
         .catch(() => this.loginFailed());
@@ -89,7 +87,7 @@ export default {
     timerAlert() {
       setTimeout(() => {
         this.btndisplay = "none";
-        this.$router.push({ name: "todoslist" });
+        // this.$router.push({ name: "todoslist" });
       }, 4000);
     }
   },
@@ -100,15 +98,15 @@ export default {
     serverBus.$on("form", form => {
       this.form = form;
     });
-  },
-  created() {
-    this.$store.dispatch("addDataAction", this.id);
-  },
-  computed: {
-    getId() {
-      return this.$store.getters.getAddedUserId;
-    }
   }
+  // created() {
+  //   this.$store.dispatch("addDataAction", this.id);
+  // },
+  // computed: {
+  //   getId() {
+  //     return this.$store.getters.getAddedUserId;
+  //   }
+  // }
 };
 </script>
 <style scoped>

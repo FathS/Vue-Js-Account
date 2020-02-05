@@ -4,7 +4,8 @@ import router from './router/index.js'
 import axios from 'axios'
 import Element from 'element-ui'
 import Vuelidate from 'vuelidate'
-import Vuex from 'vuex'
+
+import { store } from './store/store'
 
 
 
@@ -32,7 +33,6 @@ import './assets/Css/kgfd-theme.css'
 
 Vue.use(Element)
 Vue.use(Vuelidate)
-Vue.use(Vuex)
 
 
 
@@ -40,6 +40,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-
+  store,
   render: h => h(App)
 }).$mount('#app')

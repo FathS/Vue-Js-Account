@@ -52,8 +52,7 @@ export default {
         display: "block",
         cursor: "pointer"
       },
-      form: true,
-      id: null
+      form: true
     };
   },
   methods: {

@@ -37,6 +37,7 @@
                   title="Lütfen Geçerli Mail Adresi Giriniz"
                 />
                 <div v-if="!$v.user.email.email">Lütfen Geçerli Mail Adresi Giriniz</div>
+                <div>{{errorMsg}}</div>
                 <p v-if="!$v.user.email.required">
                   <span class="warning-star">*</span>
                 </p>
@@ -191,7 +192,8 @@ export default {
       color: "",
       btndisplay: "",
       inputs: [],
-      terms: false
+      terms: false,
+      errorMsg: ""
     };
   },
   validations: {
@@ -229,10 +231,9 @@ export default {
         .post(url, user)
         .then(request => this.$router.push("/login"))
         .catch(error => {
-          window.alert(error.message);
+          this.errorMsg = error;
         });
 
-        
       // if (user.name == "" || user.surname == "") {
       //   this.btnuser = "Hatalı Giriş";
       //   this.show = false;
