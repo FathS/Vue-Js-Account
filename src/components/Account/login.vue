@@ -55,7 +55,8 @@ export default {
       mystyle: {
         display: "block",
         cursor: "pointer"
-      }
+      },
+      btndisplay: ""
     };
   },
   methods: {
@@ -64,8 +65,11 @@ export default {
       this.$axios
         .post(url, user)
         .then(response => {
-          console.log(response);
+          console.log(response.data);
           this.$store.state.id = response.data.id;
+          this.$store.state.token = response.data.token;
+          this.$store.state.name =
+            response.data.name + " " + response.data.surname;
           this.loginSuccessful();
         })
         .catch(() => this.loginFailed());
@@ -73,40 +77,33 @@ export default {
     loginSuccessful() {
       this.error = true;
       serverBus.$emit("isSign", this.isSign);
-      this.btnLogin = "Hoş Geldin" + " " + this.user.email;
+      this.btnLogin = "Hoş Geldin" + " " + this.name;
       this.color = "green";
       this.mystyle.display = "none";
+      this.$router.push("/")
       this.timerAlert();
     },
     loginFailed() {
       this.error = true;
       this.btnLogin = "Hatalı Giriş";
-      delete localStorage.token;
     },
 
     timerAlert() {
       setTimeout(() => {
         this.btndisplay = "none";
-        // this.$router.push({ name: "todoslist" });
-      }, 4000);
+      }, 5000);
     }
   },
   mounted() {
     serverBus.$on("mystyle", mystyle => {
       this.mystyle.display = mystyle.display;
     });
-    serverBus.$on("form", form => {
-      this.form = form;
-    });
+  },
+  computed: {
+    name() {
+      return this.$store.state.name;
+    }
   }
-  // created() {
-  //   this.$store.dispatch("addDataAction", this.id);
-  // },
-  // computed: {
-  //   getId() {
-  //     return this.$store.getters.getAddedUserId;
-  //   }
-  // }
 };
 </script>
 <style scoped>

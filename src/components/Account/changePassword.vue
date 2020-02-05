@@ -68,11 +68,13 @@ export default {
       this.$axios
         .post(url, user)
         .then(request => {
-          console.log(request);
           window.alert("Şifreniz Güncellenmiştir.");
           this.$router.push("/");
         })
         .catch(() => this.loginFailed());
+    },
+    loginFailed() {
+      window.alert("Şifre Değiştirilemedi!!!");
     }
   }
 };

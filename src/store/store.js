@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        id: null
+        id: null,
+        name: "",
+        token: null
     }
 })

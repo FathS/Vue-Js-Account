@@ -5,39 +5,37 @@
         <router-link to="/" active-class="active" exact>
           <div class="link-btn">Home</div>
         </router-link>
-        <router-link v-if="isSign" to="/Todoslist" active-class="active">
+        <router-link v-if="token != null" to="/Todoslist" active-class="active">
           <div class="link-btn">Todoslist</div>
         </router-link>
-
-        <div v-if="isSign" class="link-btn">City</div>
-        <div v-if="isSign" class="link-btn">Manager</div>
+        <div v-if="token != null" class="link-btn">City</div>
+        <div v-if="token != null" class="link-btn">Manager</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
         <a v-if="isSign" href class="btn-class">Button</a>
-        <router-link v-if="!isSign" to="/register" active-class="active">
-          <a class="kgfd-btn kgfd-btn-link" href="Javascript:void(0);">Register</a>
+        <router-link v-if="token == null" to="/register" active-class="active">
+          <a class="link-btn" href="Javascript:void(0);">Register</a>
         </router-link>
-        <router-link v-if="!isSign" to="/login" active-class="active">
-          <a class="kgfd-btn kgfd-btn-link" href="Javascript:void(0);">Login</a>
+        <router-link v-if="token == null" to="/login" active-class="active">
+          <a class="link-btn" href="Javascript:void(0);">Login</a>
         </router-link>
-
-        <el-dropdown v-if="isSign">
+        <el-dropdown v-if="token != null">
           <span class="el-dropdown-link">
-            Ayarlar
+            {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-plus">
-              <router-link to="/ChangePassword">Şifre Değiştir</router-link>
+            <el-dropdown-item>
+              <router-link
+                to="/ChangePassword"
+                style="text-decoration:none; color:inherit;"
+              >Change Password</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <span v-on:click="logout()">Logout</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <a
-          v-if="isSign"
-          v-on:click="logout()"
-          class="kgfd-btn kgfd-btn-link"
-          href="Javascript:void(0);"
-        >Log Out</a>
       </div>
     </div>
   </div>
@@ -51,8 +49,7 @@ export default {
       mystyle: {
         display: "block",
         cursor: "pointer"
-      },
-      form: true
+      }
     };
   },
   methods: {
@@ -60,14 +57,25 @@ export default {
       serverBus.$emit("mystyle", this.mystyle.display);
       this.mystyle.display = "none";
       this.isSign = false;
-      serverBus.$emit("form", this.form);
-      return this.$router.push("/login");
+      this.$store.state.token = null;
+
+      return this.$router.push("/");
     }
   },
   mounted() {
     serverBus.$on("isSign", isSign => {
       this.isSign = isSign;
     });
+  },
+  //storeden gelen token i burada değişken olarak kullanmak için yazılan computed methodu
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
+    
+    name() {
+      return this.$store.state.name;
+    }
   }
 };
 </script>
@@ -79,7 +87,7 @@ export default {
 .active {
   background-color: #86bde2;
   color: #ffffff;
-  padding: 12px 20px;
+  padding: 10px 20px;
 }
 .link-btn {
   padding: 10px 10px;
@@ -105,5 +113,9 @@ export default {
 .btn-class:hover {
   transform: scale(1.1);
   opacity: 0.8;
+}
+.Welcome {
+  font-weight: bold;
+  font-size: 14px;
 }
 </style>
