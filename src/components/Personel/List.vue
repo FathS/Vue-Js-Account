@@ -2,7 +2,7 @@
   <div class="kgfd">
     <div class="container">
       <div class="kgfd-row">
-        <div class="kgfd-col kgfd-col-6 card">
+        <div class="kgfd-col kgfd-col-6 card" v-if="token != null">
           <br />
           <a
             href="JavaScript:void(0);"
@@ -109,6 +109,9 @@ export default {
   computed: {
     actives() {
       return this.todosList.filter(x => x.IsActive);
+    },
+    token() {
+      return this.$store.state.token;
     }
   },
   components: {

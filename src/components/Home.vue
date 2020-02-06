@@ -2,7 +2,8 @@
   <div class="kgfd">
     <div class="kgfd-row">
       <div class="kgfd-col">
-        <p v-if="token != null">{{name}}</p>
+        <p v-if="token">{{name}}</p>
+        {{token}}
       </div>
     </div>
   </div>
@@ -20,6 +21,6 @@ export default {
       return this.$store.state.token;
     }
   },
-  
+  created: function() {}
 };
 </script>

@@ -5,21 +5,21 @@
         <router-link to="/" active-class="active" exact>
           <div class="link-btn">Home</div>
         </router-link>
-        <router-link v-if="token != null" to="/Todoslist" active-class="active">
+        <router-link v-if="token" to="/Todoslist" active-class="active">
           <div class="link-btn">Todoslist</div>
         </router-link>
-        <div v-if="token != null" class="link-btn">City</div>
-        <div v-if="token != null" class="link-btn">Manager</div>
+        <div v-if="token" class="link-btn">City</div>
+        <div v-if="token" class="link-btn">Manager</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
         <a v-if="isSign" href class="btn-class">Button</a>
-        <router-link v-if="token == null" to="/register" active-class="active">
+        <router-link v-if="!token" to="/register" active-class="active">
           <a class="link-btn" href="Javascript:void(0);">Register</a>
         </router-link>
-        <router-link v-if="token == null" to="/login" active-class="active">
+        <router-link v-if="!token" to="/login" active-class="active">
           <a class="link-btn" href="Javascript:void(0);">Login</a>
         </router-link>
-        <el-dropdown v-if="token != null">
+        <el-dropdown v-if="token">
           <span class="el-dropdown-link">
             {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -58,7 +58,7 @@ export default {
       this.mystyle.display = "none";
       this.isSign = false;
       console.log(this.$store.state.token);
-      this.$store.state.token = null;
+      this.$store.state.token = false;
       console.log(this.$store.state.token);
       return this.$router.push("/");
     }

@@ -56,8 +56,7 @@ export default {
         display: "block",
         cursor: "pointer"
       },
-      btndisplay: "",
-      test: null
+      btndisplay: ""
     };
   },
   mounted() {
@@ -102,13 +101,9 @@ export default {
       }, 5000);
     }
   },
-  mounted: function() {
-    this.login();
-  },
-
   computed: {
-    name() {
-      return this.$store.state.name;
+    token() {
+      return this.$store.state.token;
     }
   }
 };

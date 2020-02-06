@@ -11,7 +11,10 @@ import { store } from './store/store'
 export const serverBus = new Vue();
 
 const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/"
+  baseURL: "https://jsonplaceholder.typicode.com/",
+  headers: {
+    Authorization: 'Bearer {token}'
+  }
 });
 
 Vue.prototype.$axios = axiosInstance;

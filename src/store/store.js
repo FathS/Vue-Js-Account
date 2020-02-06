@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
     state: {
         id: null,
         name: "",
-        token: null
+        token: false
     },
     mutations: {
         // authUser(state, userData) {
@@ -47,6 +47,7 @@ export const store = new Vuex.Store({
     getters: {
         changeName: state => {
             return " Sayın " + state.name + " Sayfaya Hoş Geldin"
-        }
+        },
+
     }
 })
