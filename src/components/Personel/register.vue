@@ -233,17 +233,7 @@ export default {
         .catch(error => {
           this.errorMsg = error;
         });
-
-      // if (user.name == "" || user.surname == "") {
-      //   this.btnuser = "Hatalı Giriş";
-      //   this.show = false;
-      //   this.timerAlert();
-      // } else {
-      //   serverBus.$emit("isSign", this.isSign);
-      //   this.successLogin(user);
-      //   this.form = false;
-      //   this.$router.push({ name: "todoslist" });
-      // }
+      // this.$store.dispatch("register", user);
     },
     successLogin(user) {
       this.btnuser = "Hoş Geldin" + " " + user.name + " " + user.surname;

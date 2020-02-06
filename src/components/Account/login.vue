@@ -56,8 +56,14 @@ export default {
         display: "block",
         cursor: "pointer"
       },
-      btndisplay: ""
+      btndisplay: "",
+      test: null
     };
+  },
+  mounted() {
+    serverBus.$on("mystyle", mystyle => {
+      this.mystyle.display = mystyle.display;
+    });
   },
   methods: {
     login(user) {
@@ -73,6 +79,8 @@ export default {
           this.loginSuccessful();
         })
         .catch(() => this.loginFailed());
+
+      // this.$store.dispatch('login', user).then(() => this.$router.push('/'))
     },
     loginSuccessful() {
       this.error = true;
@@ -80,7 +88,7 @@ export default {
       this.btnLogin = "Hoş Geldin" + " " + this.name;
       this.color = "green";
       this.mystyle.display = "none";
-      this.$router.push("/")
+      this.$router.push("/");
       this.timerAlert();
     },
     loginFailed() {
@@ -94,11 +102,10 @@ export default {
       }, 5000);
     }
   },
-  mounted() {
-    serverBus.$on("mystyle", mystyle => {
-      this.mystyle.display = mystyle.display;
-    });
+  mounted: function() {
+    this.login();
   },
+
   computed: {
     name() {
       return this.$store.state.name;

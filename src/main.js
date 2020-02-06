@@ -4,7 +4,6 @@ import router from './router/index.js'
 import axios from 'axios'
 import Element from 'element-ui'
 import Vuelidate from 'vuelidate'
-
 import { store } from './store/store'
 
 
@@ -17,6 +16,11 @@ const axiosInstance = axios.create({
 
 Vue.prototype.$axios = axiosInstance;
 
+const accessToken = localStorage.getItem('access_token')
+
+if (accessToken) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = accessToken
+}
 
 /***** Font İcon *****/
 import './assets/Css/kgfd-icons.css'

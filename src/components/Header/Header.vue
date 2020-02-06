@@ -57,8 +57,9 @@ export default {
       serverBus.$emit("mystyle", this.mystyle.display);
       this.mystyle.display = "none";
       this.isSign = false;
+      console.log(this.$store.state.token);
       this.$store.state.token = null;
-
+      console.log(this.$store.state.token);
       return this.$router.push("/");
     }
   },
@@ -72,7 +73,7 @@ export default {
     token() {
       return this.$store.state.token;
     },
-    
+
     name() {
       return this.$store.state.name;
     }
