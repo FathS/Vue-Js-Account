@@ -6,7 +6,8 @@ import Element from 'element-ui'
 import Vuelidate from 'vuelidate'
 import { store } from './store/store'
 
-
+// set auth header
+axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 
 export const serverBus = new Vue();
 
@@ -48,5 +49,10 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+   created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push("/login");
+    }
+  }
 }).$mount('#app')

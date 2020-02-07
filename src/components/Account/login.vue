@@ -26,6 +26,7 @@
       <div class="kgfd-col kgfd-col-12">
         <div class="kgfd-formbox">
           <button type="submit" v-on:click="login(user)" class="kgfd-btn kgfd-btn-primary">Giriş Yap</button>
+          <p style="color:red;">{{msg}}</p>
         </div>
       </div>
     </div>
@@ -40,6 +41,7 @@
 </template>
 <script>
 import { serverBus } from "../../main";
+import AuthService from "../../services/AuthService";
 
 export default {
   data() {
@@ -56,7 +58,8 @@ export default {
         display: "block",
         cursor: "pointer"
       },
-      btndisplay: ""
+      btndisplay: "",
+      msg: ""
     };
   },
   mounted() {
@@ -66,21 +69,38 @@ export default {
   },
   methods: {
     login(user) {
+      // const response = AuthService.login(user);
       const url = "http://localhost:1256/Home/Login/";
       this.$axios
         .post(url, user)
         .then(response => {
           console.log(response.data);
-          this.$store.state.id = response.data.id;
-          this.$store.state.token = response.data.token;
-          this.$store.state.name =
-            response.data.name + " " + response.data.surname;
+          const token = response.data.token;
+          const name = response.data.name + " " + response.data.surname;
+          const id = response.data.id;
+          this.$store.dispatch("login", { token, name, id });
           this.loginSuccessful();
         })
-        .catch(() => this.loginFailed());
-
-      // this.$store.dispatch('login', user).then(() => this.$router.push('/'))
+        .catch(error => {
+          console.log(error);
+          this.msg = error.response.data;
+        });
     },
+    // login(user) {
+    //   const url = "http://localhost:1256/Home/Login/";
+    //   this.$axios
+    //     .post(url, user)
+    //     .then(response => {
+    //       console.log(response.data);
+    //       this.$store.state.id = response.data.id;
+    //       this.$store.state.token = response.data.token;
+    //       this.$store.state.name =
+    //         response.data.name + " " + response.data.surname;
+    //       this.loginSuccessful();
+    //     })
+    //     .catch(() => this.loginFailed());
+    //   this.$store.dispatch('login', user).then(() => this.$router.push('/'))
+    // },
     loginSuccessful() {
       this.error = true;
       serverBus.$emit("isSign", this.isSign);
@@ -99,11 +119,6 @@ export default {
       setTimeout(() => {
         this.btndisplay = "none";
       }, 5000);
-    }
-  },
-  computed: {
-    token() {
-      return this.$store.state.token;
     }
   }
 };

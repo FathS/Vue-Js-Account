@@ -4,13 +4,7 @@
       <div class="kgfd-col kgfd-col-3">
         <div class="kgfd-formbox">
           <label for>Old Password</label>
-          <input
-            type="password"
-            class="kgfd-form-input"
-            id="email"
-            v-model="user.oldPassword"
-            title="Lütfen Geçerli Mail Adresi Giriniz"
-          />
+          <input type="password" class="kgfd-form-input" v-model="user.oldPassword" />
         </div>
       </div>
     </div>
@@ -18,8 +12,7 @@
       <div class="kgfd-col kgfd-col-3">
         <div class="kgfd-formbox">
           <label for>New Password</label>
-          <input type="password" class="kgfd-form-input" id="newPassword" v-model="user.password" />
-          {{user.password}}
+          <input type="password" class="kgfd-form-input" v-model="user.password" />
         </div>
       </div>
     </div>
@@ -27,12 +20,7 @@
       <div class="kgfd-col kgfd-col-3">
         <div class="kgfd-formbox">
           <label for>Confirm Password</label>
-          <input
-            type="password"
-            class="kgfd-form-input"
-            id="confirmPassword"
-            v-model="user.confirPassword"
-          />
+          <input type="password" class="kgfd-form-input" v-model="user.confirPassword" />
         </div>
       </div>
     </div>
@@ -44,6 +32,7 @@
             v-on:click="changePass(user)"
             class="kgfd-btn kgfd-btn-primary"
           >Kaydet</button>
+          <p style="color:red;">{{errMsg}}</p>
         </div>
       </div>
     </div>
@@ -58,8 +47,9 @@ export default {
         oldPassword: "",
         password: "",
         confirPassword: "",
-        id: this.$store.state.id
-      }
+        id: this.$store.getters.getUserId
+      },
+      errMsg: ""
     };
   },
   methods: {
@@ -67,14 +57,14 @@ export default {
       const url = "http://localhost:1256/Home/ChangePassword/";
       this.$axios
         .post(url, user)
-        .then(request => {
+        .then(response => {
           window.alert("Şifreniz Güncellenmiştir.");
           this.$router.push("/");
         })
-        .catch(() => this.loginFailed());
-    },
-    loginFailed() {
-      window.alert("Şifre Değiştirilemedi!!!");
+        .catch(error => {
+          console.log(error);
+          this.errMsg = error.response.data;
+        });
     }
   }
 };

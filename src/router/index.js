@@ -11,11 +11,15 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: true
+      },
     },
     {
       path: '/Todoslist',
@@ -50,5 +54,3 @@ export default new Router({
 
   ]
 })
-
-

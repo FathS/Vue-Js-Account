@@ -56,11 +56,13 @@ export default {
     logout() {
       serverBus.$emit("mystyle", this.mystyle.display);
       this.mystyle.display = "none";
-      this.isSign = false;
-      console.log(this.$store.state.token);
-      this.$store.state.token = false;
-      console.log(this.$store.state.token);
-      return this.$router.push("/");
+      // this.isSign = false;
+      // console.log(this.$store.state.token);
+      // this.$store.state.token = false;
+      // console.log(this.$store.state.token);
+      // return this.$router.push("/");
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
     }
   },
   mounted() {
@@ -71,11 +73,11 @@ export default {
   //storeden gelen token i burada değişken olarak kullanmak için yazılan computed methodu
   computed: {
     token() {
-      return this.$store.state.token;
+      return this.$store.getters.isLoggedIn;
     },
-
+    //storeden gelen Adı Soyadı burada değişken olarak kullanmak için yazılan computed methodu
     name() {
-      return this.$store.state.name;
+      return this.$store.getters.getUser;
     }
   }
 };

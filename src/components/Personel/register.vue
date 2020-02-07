@@ -7,6 +7,7 @@
           <div class="kgfd-row">
             <div class="kgfd-col kgfd-col-6">
               <h1>Kayıt Ol</h1>
+              <div style="color:red;">{{errorMsg}} {{okMsg}}</div>
               <br />
               <div class="kgfd-formbox">
                 <label for>Name</label>
@@ -37,7 +38,7 @@
                   title="Lütfen Geçerli Mail Adresi Giriniz"
                 />
                 <div v-if="!$v.user.email.email">Lütfen Geçerli Mail Adresi Giriniz</div>
-                <div>{{errorMsg}}</div>
+
                 <p v-if="!$v.user.email.required">
                   <span class="warning-star">*</span>
                 </p>
@@ -193,7 +194,8 @@ export default {
       btndisplay: "",
       inputs: [],
       terms: false,
-      errorMsg: ""
+      errorMsg: "",
+      okMsg: ""
     };
   },
   validations: {
@@ -229,9 +231,14 @@ export default {
       const url = "http://localhost:1256/Home/Register/";
       const response = this.$axios
         .post(url, user)
-        .then(request => this.$router.push("/login"))
+        .then(response => {
+          this.okMsg = response.data;
+          setTimeout(() => {
+            this.$router.push("/login");
+          }, 3000);
+        })
         .catch(error => {
-          this.errorMsg = error;
+          this.errorMsg = error.response.data;
         });
       // this.$store.dispatch("register", user);
     },
