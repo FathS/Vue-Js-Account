@@ -6,6 +6,7 @@ import Register from '../components/Personel/register.vue'
 import Login from '../components/Account/login.vue'
 import ChangePassword from '../components/Account/changePassword.vue'
 import Home from '../components/Home.vue'
+import ActiveAccount from '../components/Account/activeAccount.vue'
 
 Vue.use(Router)
 
@@ -43,6 +44,10 @@ export default new Router({
       path: '/ChangePassword',
       name: 'change',
       component: ChangePassword
+    },
+    {
+      path: '/activeAccount',
+      component: ActiveAccount
     },
     {
       path: '/:id/edit',

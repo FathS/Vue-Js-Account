@@ -6,13 +6,14 @@ import Element from 'element-ui'
 import Vuelidate from 'vuelidate'
 import { store } from './store/store'
 
+
 // set auth header
 axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 
 export const serverBus = new Vue();
 
 const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/",
+  // baseURL: "https://jsonplaceholder.typicode.com/",
   headers: {
     Authorization: 'Bearer {token}'
   }
@@ -50,7 +51,7 @@ new Vue({
   router,
   store,
   render: h => h(App),
-   created() {
+  created() {
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/login");
     }

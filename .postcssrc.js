@@ -4,6 +4,7 @@ module.exports = {
     "postcss-import": {},
     "postcss-url": {},
     "autoprefixer": {}
-  }
+  },
+  
 }
 

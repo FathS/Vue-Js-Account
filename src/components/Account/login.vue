@@ -23,10 +23,15 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-12">
+      <div class="kgfd-col kgfd-col-3">
         <div class="kgfd-formbox">
           <button type="submit" v-on:click="login(user)" class="kgfd-btn kgfd-btn-primary">Giriş Yap</button>
-          <p style="color:red;">{{msg}}</p>
+          <router-link to="/activeAccount">
+            <a
+              style="float: right; margin:20px 0 0 0; font-size:14px; font-weight:bold;"
+            >{{activeAccount}}</a>
+          </router-link>
+          <p v-if="msgShow" style="color:red;">{{msg}}</p>
         </div>
       </div>
     </div>
@@ -59,7 +64,9 @@ export default {
         cursor: "pointer"
       },
       btndisplay: "",
-      msg: ""
+      msg: "",
+      msgShow: true,
+      activeAccount: ""
     };
   },
   mounted() {
@@ -78,12 +85,28 @@ export default {
           const token = response.data.token;
           const name = response.data.name + " " + response.data.surname;
           const id = response.data.id;
-          this.$store.dispatch("login", { token, name, id });
+          const expire = response.data.token.expire;
+          this.$store.dispatch("login", { token, name, id, expire });
           this.loginSuccessful();
         })
         .catch(error => {
-          console.log(error);
-          this.msg = error.response.data;
+          if (
+            error.response.data ==
+            "Hesap Aktif Değil. Aktif Etmek için Tıklayınız"
+          ) {
+            this.activeAccount = error.response.data;
+            this.msgShow = false;
+          }
+          if (
+            error.response.data !=
+            "Hesap Aktif Değil. Aktif Etmek için Tıklayınız"
+          ) {
+            this.msgShow = true;
+            this.msg = error.response.data;
+            this.activeAccount = "";
+          }
+
+          // this.activeAccount = error.response.data.isActive;
         });
     },
     // login(user) {

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from "vuex-persistedstate"
+import addSeconds from "vue-date-fns";
 
 Vue.use(Vuex)
 Vue.use(axios)
@@ -10,7 +11,7 @@ const getDefaultState = () => {
     return {
         token: false,
         name: "",
-        id: null
+        id: null,
     };
 };
 
@@ -39,7 +40,6 @@ export const store = new Vuex.Store({
     mutations: {
         authUser: (state, token) => {
             state.token = token
-
         },
         getUser: (state, name) => {
             state.name = name;
@@ -63,32 +63,5 @@ export const store = new Vuex.Store({
         logout: ({ commit }) => {
             commit('RESET', '');
         }
-
-        // register({ commit }, authData) {
-        //     const url = "http://localhost:1256/Home/Register/";
-        //     axios
-        //         .post(url, authData)
-        //         .then(request => {
-        //             router.push("/login")
-        //         })
-        //         .catch(error => {
-        //             this.errorMsg = error;
-        //         });
-        // },
-        // login({ commit }, authData) {
-        //     const url = "http://localhost:1256/Home/Login/";
-        //     axios
-        //         .post(url, authData)
-        //         .then(response => {
-        //             console.log(response.data);
-        //             this.state.name = response.data.name + " " + response.data.surname
-        //             commit('authUser', {
-        //                 token: response.data.token,
-        //                 id: response.data.id,
-        //             })
-        //             router.push("/")
-        //         })
-        //         .catch(() => this.loginFailed());
-        // }
     },
 })

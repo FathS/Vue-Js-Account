@@ -32,6 +32,9 @@
               >Change Password</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
+              <span v-on:click="disabledAccount(disabledUser)">Hesabı Dondur</span>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <span v-on:click="logout()">Logout</span>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -49,6 +52,10 @@ export default {
       mystyle: {
         display: "block",
         cursor: "pointer"
+      },
+      disabledUser: {
+        id: this.$store.getters.getUserId,
+        disabled: false
       }
     };
   },
@@ -63,6 +70,23 @@ export default {
       // return this.$router.push("/");
       this.$store.dispatch("logout");
       this.$router.push("/login");
+    },
+    disabledAccount(disabledUser) {
+      if (confirm("Hesabı Dondurmak İstediğinize Emin misiniz?")) {
+        const url = "http://localhost:1256/Home/DisabledAccount/";
+        this.$axios
+          .post(url, disabledUser)
+          .then(response => {
+            window.alert("Hesabınız Dondurulmuştur");
+            setTimeout(() => {
+              this.logout();
+            }, 3000);
+          })
+          .catch(error => {
+            console.log(error);
+            this.errMsg = error.response.data;
+          });
+      }
     }
   },
   mounted() {

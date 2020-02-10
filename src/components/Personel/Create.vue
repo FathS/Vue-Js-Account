@@ -82,6 +82,7 @@
     <div class="kgfd-row">
       <div class="kgfd-col kgfd-col-12 kgfd-text-right">
         <div class="kgfd-formbox">
+          <div style="text-align:left;">{{msg}}</div>
           <a
             href="JavaScript:Void(0);"
             v-on:click="keyupEvent(changeComp)"
@@ -132,7 +133,8 @@ export default {
         cityId: null,
         managerId: null
       },
-      changeComp: ""
+      changeComp: "",
+      msg: ""
     };
   },
   created: function() {
@@ -149,8 +151,17 @@ export default {
     },
     createUser(contact) {
       const url = "http://localhost:1256/Home/Add/";
-      this.$axios.post(url, contact);
-      window.location.pathname({ name: todoslist });
+      this.$axios
+        .post(url, contact)
+        .then(response => {
+          this.msg = response.data;
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        })
+        .catch(error => {
+          this.msg = error.response.data;
+        });
     },
     keyupEvent() {
       this.$emit("selectedComponent", this.changeComp);
@@ -176,7 +187,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped >
 .invalid input {
   border: 1px solid red !important;
   background-color: #ffc9aa;
