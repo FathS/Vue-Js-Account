@@ -2,7 +2,7 @@
   <div class="kgfd">
     <div class="container">
       <div class="kgfd-row">
-        <div class="kgfd-col kgfd-col-6 card" v-if="token != null">
+        <div class="kgfd-col kgfd-col-6 card kgfd-col-m12 kgfd-col-s12" v-if="token != null">
           <br />
           <a
             href="JavaScript:void(0);"
@@ -48,7 +48,7 @@
             </tbody>
           </table>
         </div>
-        <div class="kgfd-col kgfd-col-6">
+        <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
           <component @selectedComponent="selectedComponent = $event" :is="selectedComponent"></component>
         </div>
       </div>
@@ -84,20 +84,16 @@ export default {
     this.GetList();
   },
   methods: {
-    // getUser(user) {
-    //   swal("header", "body");
-    // },
     GetList() {
-      this.$axios.get("http://localhost:1256/Home/Index/").then(response => {
+      const url = this.$store.getters.apiUrl + "Home/Index/";
+      this.$axios.get(url).then(response => {
         this.todosList = response.data;
       });
     },
     Delete(id) {
-      // axios
-      //   .delete("http://localhost:1256/Home/Index/Delete/" + id).then(response => { this.todosList.splice(id, 1);
-      //   });
       if (confirm("İşlemi Onaylıyor musunuz?")) {
-        const url = "http://localhost:1256/Home/Delete/" + id;
+        // const url = "http://localhost:5000/Home/Delete/" + id;
+        const url = this.$store.getters.apiUrl + "Home/Delete/" + id;
         this.$axios.post(url);
         window.alert("Kayıt Silindi!");
         window.location.reload();

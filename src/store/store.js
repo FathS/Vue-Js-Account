@@ -12,6 +12,7 @@ const getDefaultState = () => {
         token: false,
         name: "",
         id: null,
+        apiUrl: "http://localhost:5000/"
     };
 };
 
@@ -36,6 +37,9 @@ export const store = new Vuex.Store({
         changeName: state => {
             return " Sayın " + state.name + " Sayfaya Hoş Geldin"
         },
+        apiUrl: state => {
+            return state.apiUrl
+        }
     },
     mutations: {
         authUser: (state, token) => {

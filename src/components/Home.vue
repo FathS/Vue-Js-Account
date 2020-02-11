@@ -9,9 +9,16 @@
 </template>
 <script>
 import AuthService from "../services/AuthService";
+const hamburgers = '<i class="fa fa-bars" aria-hidden="true"></i>';
+const close = '<i class="fa fa-times" aria-hidden="true"></i>';
 export default {
   data() {
-    return {};
+    return {
+      
+    };
+  },
+  methods: {
+    closeMenu() {}
   },
   computed: {
     name() {
@@ -31,3 +38,6 @@ export default {
   // }
 };
 </script>
+<style scoped>
+
+</style>

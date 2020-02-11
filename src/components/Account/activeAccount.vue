@@ -46,7 +46,8 @@ export default {
   },
   methods: {
     activeAccount(User) {
-      const url = "http://localhost:1256/Home/ActiveAccount/";
+      // const url = "http://localhost:5000/Home/ActiveAccount/";
+      const url = this.$store.getters.apiUrl + "Home/ActiveAccount/";
       this.$axios
         .post(url, User)
         .then(response => {

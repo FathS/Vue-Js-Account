@@ -111,26 +111,30 @@ export default {
   },
   methods: {
     getDetail() {
+      const url = this.$store.getters.apiUrl + "Home/Get/";
       this.$axios
-        .get("http://localhost:1256/Home/Get/" + this.$route.params.id)
+        .get(url + this.$route.params.id)
         .then(response => {
           this.todosList = response.data;
         });
     },
     getCityList() {
-      this.$axios.get("http://localhost:1256/Home/CityList/").then(response => {
+      const url = this.$store.getters.apiUrl + "Home/CityList/";
+      this.$axios.get(url).then(response => {
         this.cityList = response.data;
       });
     },
     getManagerList() {
+      const url = this.$store.getters.apiUrl + "Home/managerList/";
       this.$axios
-        .get("http://localhost:1256/Home/managerList/")
+        .get(url)
         .then(response => {
           this.managerList = response.data;
         });
     },
     updateUser(todosList) {
-      const url = "http://localhost:1256/Home/Update/" + this.$route.params.id;
+      // const url = "http://localhost:5000/Home/Update/" + this.$route.params.id;
+      const url = this.$store.getters.apiUrl + "Home/Update/" + this.$route.params.id;
       this.$axios.put(url, todosList);
       return this.$router.push({ name: "todoslist" });
     }

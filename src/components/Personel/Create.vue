@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox" :class="{invalid: $v.contact.name.$error}">
           <label>Name</label>
           <input
@@ -13,7 +13,7 @@
           <div v-if="!$v.contact.name.minLen">İsim en az 5 karakter olmalıdır</div>
         </div>
       </div>
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>Surname</label>
           <input type="text" class="kgfd-form-input" v-model="contact.surname" />
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>Gender</label>
           <el-select v-model="contact.gender" placeholder="Cinsiyet">
@@ -30,7 +30,7 @@
           </el-select>
         </div>
       </div>
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>Position</label>
           <input type="text" class="kgfd-form-input" v-model="contact.department" />
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>Doğum Tarihi</label>
           <el-date-picker v-model="contact.birthday" type="date" placeholder="Pick a day"></el-date-picker>
@@ -52,7 +52,7 @@
       </div>-->
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>City</label>
           <el-select v-model="contact.cityId" placeholder="Şehir Seçiniz">
@@ -65,7 +65,7 @@
           </el-select>
         </div>
       </div>
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>Manager</label>
           <el-select v-model="contact.managerId" placeholder="Şehir Seçiniz">
@@ -138,10 +138,6 @@ export default {
     };
   },
   created: function() {
-    // setTimeout(function() {
-    //   alert("Sayfa yenilendi");
-    //   window.location.reload(1);
-    // }, 5000);
     this.GetCityList();
     this.getManagerList();
   },
@@ -150,7 +146,8 @@ export default {
       this.contact.image = event.target.files[0];
     },
     createUser(contact) {
-      const url = "http://localhost:1256/Home/Add/";
+      // const url = "http://localhost:5000/Home/Add/";
+      const url = this.$store.getters.apiUrl + "Home/Add/";
       this.$axios
         .post(url, contact)
         .then(response => {
@@ -168,13 +165,15 @@ export default {
     },
 
     GetCityList() {
-      this.$axios.get("http://localhost:1256/Home/CityList/").then(response => {
+      const url = this.$store.getters.apiUrl + "Home/CityList/";
+      this.$axios.get(url).then(response => {
         this.cityList = response.data;
       });
     },
     getManagerList() {
+      const url = this.$store.getters.apiUrl + "Home/managerList/";
       this.$axios
-        .get("http://localhost:1256/Home/managerList/")
+        .get(url)
         .then(response => {
           this.managerList = response.data;
         });

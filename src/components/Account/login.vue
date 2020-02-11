@@ -1,7 +1,7 @@
 <template>
   <div class="kgfd">
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label for>E-mail</label>
           <input
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label for>Password</label>
           <input type="password" class="kgfd-form-input" id="password" v-model="user.password" />
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <button type="submit" v-on:click="login(user)" class="kgfd-btn kgfd-btn-primary">Giriş Yap</button>
           <router-link to="/activeAccount">
@@ -77,7 +77,8 @@ export default {
   methods: {
     login(user) {
       // const response = AuthService.login(user);
-      const url = "http://localhost:1256/Home/Login/";
+      // const url = "http://localhost:5000/Home/Login/";
+      const url = this.$store.getters.apiUrl + "Home/Login/";
       this.$axios
         .post(url, user)
         .then(response => {

@@ -41,10 +41,57 @@
         </el-dropdown>
       </div>
     </div>
+    <div :class="{menuslide: isActive}" :style="{width: width + 'px'}" >
+      <div class="hamburger" @click="open()" v-html="icon"></div>
+      <ul class="menu-link" v-if="isShow" @click="open()">
+        <router-link to="/">
+          <li>Home</li>
+        </router-link>
+        <router-link v-if="token" to="/Todoslist">
+          <li>TodosList</li>
+        </router-link>
+        <router-link v-if="token" to="/City">
+          <li>City</li>
+        </router-link>
+        <router-link v-if="token" to="/Manager">
+          <li>Manager</li>
+        </router-link>
+        <router-link v-if="!token" to="/register">
+          <li>Register</li>
+        </router-link>
+        <router-link v-if="!token" to="/login">
+          <li>Login</li>
+        </router-link>
+        <li>
+          <el-dropdown v-if="token">
+            <span class="el-dropdown-link">
+              {{name}}
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <router-link
+                  to="/ChangePassword"
+                  style="text-decoration:none; color:inherit;"
+                >Change Password</router-link>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <span v-on:click="disabledAccount(disabledUser)">Hesabı Dondur</span>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <span v-on:click="logout()">Logout</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
 import { serverBus } from "../../main";
+const hamburgers = '<i class="fa fa-bars" aria-hidden="true"></i>';
+const close = '<i class="fa fa-times" aria-hidden="true"></i>';
 export default {
   data() {
     return {
@@ -56,9 +103,14 @@ export default {
       disabledUser: {
         id: this.$store.getters.getUserId,
         disabled: false
-      }
+      },
+      icon: hamburgers,
+      isActive: true,
+      isShow: false,
+      width: ""
     };
   },
+
   methods: {
     logout() {
       serverBus.$emit("mystyle", this.mystyle.display);
@@ -71,9 +123,21 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push("/login");
     },
+    open() {
+      if (this.icon == hamburgers) {
+        this.icon = close;
+        this.width = "250";
+        this.isShow = true;
+      } else {
+        this.icon = hamburgers;
+        this.width = "50";
+        this.isShow = false;
+      }
+    },
     disabledAccount(disabledUser) {
       if (confirm("Hesabı Dondurmak İstediğinize Emin misiniz?")) {
-        const url = "http://localhost:1256/Home/DisabledAccount/";
+        // const url = "http://localhost:5000/Home/DisabledAccount/";
+        const url = this.$store.getters.apiUrl + "Home/DisabledAccount/";
         this.$axios
           .post(url, disabledUser)
           .then(response => {
@@ -107,9 +171,49 @@ export default {
 };
 </script>
 <style scoped>
+.menuslide {
+  background-color: #3c9797;
+  position: fixed;
+  height: 100%;
+  width: 50px;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+  z-index: 1;
+  display: none;
+}
+
+.hamburger {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: right;
+}
+
+.menu-link {
+  margin: 20px 20px;
+  list-style: none;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 18px;
+}
+.menu-link li {
+  padding: 0 0 15px 0;
+  cursor: pointer;
+}
+.menu-link li:hover {
+  opacity: 0.5;
+}
+
 .kgfd-header {
   background: #ffffff;
   border: none;
+  padding-left: 40px;
 }
 .active {
   background-color: #86bde2;
@@ -144,5 +248,21 @@ export default {
 .Welcome {
   font-weight: bold;
   font-size: 14px;
+}
+@media only screen and (max-width: 991px) {
+  .kgfd-header {
+    display: none;
+  }
+  .menuslide {
+    display: block;
+  }
+}
+@media only screen and (max-width: 599px) {
+  .kgfd-header {
+    display: none;
+  }
+  .menuslide {
+    display: block;
+  }
 }
 </style>

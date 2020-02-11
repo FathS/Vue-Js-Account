@@ -2,10 +2,10 @@
   <div class="kgfd">
     <div class="kgfd-row">
       <div class="kgfd-col kgfd-col-12"></div>
-      <div v-if="form" id="signup" class="kgfd-col kgfd-col-6">
+      <div v-if="form" id="signup" class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <form @submit.prevent="register(user)">
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <h1>Kayıt Ol</h1>
               <div style="color:red;">{{errorMsg}} {{okMsg}}</div>
               <br />
@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox">
                 <label for>Surname</label>
                 <input type="text" class="kgfd-form-input" id="surname" v-model="user.surname" />
@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.email.$error}">
                 <label for>E-mail</label>
                 <input
@@ -36,6 +36,7 @@
                   @input="$v.user.email.$touch()"
                   v-model="user.email"
                   title="Lütfen Geçerli Mail Adresi Giriniz"
+                  placeholder="example@example.com"
                 />
                 <div v-if="!$v.user.email.email">Lütfen Geçerli Mail Adresi Giriniz</div>
 
@@ -46,7 +47,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.age.$error}">
                 <label for>Age</label>
                 <input
@@ -63,7 +64,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.password.$error}">
                 <label for>Password</label>
                 <input
@@ -79,7 +80,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.confirPassword.$error}">
                 <label for>Confirm Password</label>
                 <input
@@ -95,7 +96,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox-check" :class="{invalid: $v.terms.$error}">
                 <input type="checkbox" id="terms" @change="$v.terms.$touch()" v-model="terms" />
                 <label for="terms">Okudum, Onaylıyorum.</label>
@@ -103,7 +104,7 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox">
                 <button
                   type="submit"
@@ -115,14 +116,14 @@
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox">
                 <Button @click="addAlan()" class="kgfd-btn kgfd-btn-primary">Alan Ekle</Button>
               </div>
             </div>
           </div>
           <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6">
+            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" v-for="(input, index) in inputs" :key="input.id">
                 <label :for="input.id">Alan</label>
                 <input
@@ -140,7 +141,7 @@
           </div>
         </form>
       </div>
-      <div class="kgfd-col kgfd-col-6">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <images />
       </div>
     </div>
@@ -228,7 +229,8 @@ export default {
   },
   methods: {
     register(user) {
-      const url = "http://localhost:1256/Home/Register/";
+      // const url = "http://localhost:5000/Home/Register/";
+      const url = this.$store.getters.apiUrl + "Home/Register/";
       const response = this.$axios
         .post(url, user)
         .then(response => {
@@ -318,8 +320,9 @@ export default {
 }
 
 .invalid input {
-  border: 1px solid red !important;
-  background-color: #ffc9aa;
+  border-bottom: 2px solid red !important;
+  background-color: transparent;
+  border-radius: 0;
 }
 .invalid label {
   color: red !important;

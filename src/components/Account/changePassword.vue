@@ -1,7 +1,7 @@
 <template>
   <div class="kgfd">
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-3 kgfd-col-s12 kgfd-col-m12">
         <div class="kgfd-formbox">
           <label for>Old Password</label>
           <input type="password" class="kgfd-form-input" v-model="user.oldPassword" />
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-3 kgfd-col-s12 kgfd-col-m12">
         <div class="kgfd-formbox">
           <label for>New Password</label>
           <input type="password" class="kgfd-form-input" v-model="user.password" />
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-3 kgfd-col-s12 kgfd-col-m12">
         <div class="kgfd-formbox">
           <label for>Confirm Password</label>
           <input type="password" class="kgfd-form-input" v-model="user.confirPassword" />
@@ -54,7 +54,8 @@ export default {
   },
   methods: {
     changePass(user) {
-      const url = "http://localhost:1256/Home/ChangePassword/";
+      // const url = "http://localhost:5000/Home/ChangePassword/";
+      const url = this.$store.getters.apiUrl + "Home/ChangePassword/";
       this.$axios
         .post(url, user)
         .then(response => {
