@@ -46,10 +46,8 @@ export default {
   },
   methods: {
     activeAccount(User) {
-      // const url = "http://localhost:5000/Home/ActiveAccount/";
-      const url = this.$store.getters.apiUrl + "Home/ActiveAccount/";
       this.$axios
-        .post(url, User)
+        .post("Account/ActiveAccount/", User)
         .then(response => {
           this.msg = response.data;
           setTimeout(() => {

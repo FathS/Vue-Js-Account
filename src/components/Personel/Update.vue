@@ -111,31 +111,22 @@ export default {
   },
   methods: {
     getDetail() {
-      const url = this.$store.getters.apiUrl + "Home/Get/";
-      this.$axios
-        .get(url + this.$route.params.id)
-        .then(response => {
-          this.todosList = response.data;
-        });
+      this.$axios.get("Home/Get/" + this.$route.params.id).then(response => {
+        this.todosList = response.data;
+      });
     },
     getCityList() {
-      const url = this.$store.getters.apiUrl + "Home/CityList/";
-      this.$axios.get(url).then(response => {
+      this.$axios.get("City/CityList/").then(response => {
         this.cityList = response.data;
       });
     },
     getManagerList() {
-      const url = this.$store.getters.apiUrl + "Home/managerList/";
-      this.$axios
-        .get(url)
-        .then(response => {
-          this.managerList = response.data;
-        });
+      this.$axios.get("Home/managerList/").then(response => {
+        this.managerList = response.data;
+      });
     },
     updateUser(todosList) {
-      // const url = "http://localhost:5000/Home/Update/" + this.$route.params.id;
-      const url = this.$store.getters.apiUrl + "Home/Update/" + this.$route.params.id;
-      this.$axios.put(url, todosList);
+      this.$axios.put("Home/Update/" + this.$route.params.id, todosList);
       return this.$router.push({ name: "todoslist" });
     }
   }

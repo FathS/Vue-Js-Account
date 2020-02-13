@@ -14,13 +14,14 @@
           </a>
           <br />
           <br />
-          <table>
+          <table class="kgfd-table">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Manager</th>
                 <th>City</th>
+                <th>District</th>
                 <th>Edit</th>
                 <th style="text-align:center;">Delete</th>
               </tr>
@@ -31,6 +32,8 @@
                 <td>{{item.surname}}</td>
                 <td>{{item.manager}}</td>
                 <td>{{item.city}}</td>
+                <!-- <td v-if="item.district == null">İlçe Seçilmemiş</td> -->
+                <td>{{item.district}}</td>
                 <router-link :to="{ name:'detail', params: { id: item.id}}">
                   <td>
                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -85,16 +88,13 @@ export default {
   },
   methods: {
     GetList() {
-      const url = this.$store.getters.apiUrl + "Home/Index/";
-      this.$axios.get(url).then(response => {
+      this.$axios.get("Home/Index/").then(response => {
         this.todosList = response.data;
       });
     },
     Delete(id) {
       if (confirm("İşlemi Onaylıyor musunuz?")) {
-        // const url = "http://localhost:5000/Home/Delete/" + id;
-        const url = this.$store.getters.apiUrl + "Home/Delete/" + id;
-        this.$axios.post(url);
+        this.$axios.post("Home/Delete/" + id);
         window.alert("Kayıt Silindi!");
         window.location.reload();
       } else {

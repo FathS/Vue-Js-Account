@@ -7,6 +7,7 @@ import Login from '../components/Account/login.vue'
 import ChangePassword from '../components/Account/changePassword.vue'
 import Home from '../components/Home.vue'
 import ActiveAccount from '../components/Account/activeAccount.vue'
+import City from '../components/City/city.vue'
 
 Vue.use(Router)
 
@@ -48,6 +49,10 @@ export default new Router({
     {
       path: '/activeAccount',
       component: ActiveAccount
+    },
+    {
+      path: '/city',
+      component: City
     },
     {
       path: '/:id/edit',

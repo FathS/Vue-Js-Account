@@ -8,7 +8,9 @@
         <router-link v-if="token" to="/Todoslist" active-class="active">
           <div class="link-btn">Todoslist</div>
         </router-link>
-        <div v-if="token" class="link-btn">City</div>
+        <router-link v-if="token" to="/City" active-class="active">
+          <div v-if="token" class="link-btn">City</div>
+        </router-link>
         <div v-if="token" class="link-btn">Manager</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
@@ -41,7 +43,7 @@
         </el-dropdown>
       </div>
     </div>
-    <div :class="{menuslide: isActive}" :style="{width: width + 'px'}" >
+    <div :class="{menuslide: isActive}" :style="{width: width + 'px'}">
       <div class="hamburger" @click="open()" v-html="icon"></div>
       <ul class="menu-link" v-if="isShow" @click="open()">
         <router-link to="/">
@@ -137,9 +139,9 @@ export default {
     disabledAccount(disabledUser) {
       if (confirm("Hesabı Dondurmak İstediğinize Emin misiniz?")) {
         // const url = "http://localhost:5000/Home/DisabledAccount/";
-        const url = this.$store.getters.apiUrl + "Home/DisabledAccount/";
+        const url = this.$store.getters.apiUrl + "Account/DisabledAccount/";
         this.$axios
-          .post(url, disabledUser)
+          .post("Account/DisabledAccount/", disabledUser)
           .then(response => {
             window.alert("Hesabınız Dondurulmuştur");
             setTimeout(() => {

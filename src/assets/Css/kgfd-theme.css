@@ -460,16 +460,16 @@
 
 
 /****** TABLES ******/
-table thead tr, table tbody tr {
+table.kgfd-table thead tr, table.kgfd-table tbody tr {
     border-color: #eeedeb;
 }
-table thead tr th i {
+table.kgfd-table thead tr th i {
     color: #c0c4cc;
 }
-table thead tr th i.kgfd-active-icon{
+table.kgfd-table thead tr th i.kgfd-active-icon{
     color: #282724;
 }
-table tbody tr td i{
+table.kgfd-table tbody tr td i{
     color: #606266;
 }
 

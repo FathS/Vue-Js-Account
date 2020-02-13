@@ -44,27 +44,6 @@
           <el-date-picker v-model="contact.birthday" type="date" placeholder="Pick a day"></el-date-picker>
         </div>
       </div>
-      <!-- <div class="kgfd-col kgfd-col-6">
-        <div class="kgfd-formbox">
-          <label>Resim Ekle</label>
-          <input type="file" class="kgfd-form-input" @change="onFile()" />
-        </div>
-      </div>-->
-    </div>
-    <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
-        <div class="kgfd-formbox">
-          <label>City</label>
-          <el-select v-model="contact.cityId" placeholder="Şehir Seçiniz">
-            <el-option
-              v-for="city in cityList"
-              :key="city.value"
-              :label="city.text"
-              :value="city.value"
-            ></el-option>
-          </el-select>
-        </div>
-      </div>
       <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label>Manager</label>
@@ -74,6 +53,38 @@
               :key="manager.value"
               :label="manager.text"
               :value="manager.value"
+            ></el-option>
+          </el-select>
+        </div>
+      </div>
+    </div>
+    <div class="kgfd-row">
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+        <div class="kgfd-formbox">
+          <label>City</label>
+          <el-select
+            v-model="contact.cityId"
+            placeholder="Şehir Seçiniz"
+            @change="getDistrict(contact.cityId)"
+          >
+            <el-option
+              v-for="city in cityList"
+              :key="city.value"
+              :label="city.text"
+              :value="city.value"
+            ></el-option>
+          </el-select>
+        </div>
+      </div>
+      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12" v-if="selected">
+        <div class="kgfd-formbox">
+          <label>District</label>
+          <el-select v-model="contact.districtId" placeholder="İlçe Seçiniz">
+            <el-option
+              v-for="district in districts"
+              :key="district.id"
+              :label="district.name"
+              :value="district.id"
             ></el-option>
           </el-select>
         </div>
@@ -124,6 +135,9 @@ export default {
     return {
       cityList: [],
       managerList: [],
+      districts: [],
+      id: 0,
+      selected: false,
       contact: {
         name: "",
         surname: "",
@@ -131,7 +145,8 @@ export default {
         department: "",
         birthday: "",
         cityId: null,
-        managerId: null
+        managerId: null,
+        districtId: null
       },
       changeComp: "",
       msg: ""
@@ -146,10 +161,8 @@ export default {
       this.contact.image = event.target.files[0];
     },
     createUser(contact) {
-      // const url = "http://localhost:5000/Home/Add/";
-      const url = this.$store.getters.apiUrl + "Home/Add/";
       this.$axios
-        .post(url, contact)
+        .post("Home/Add/", contact)
         .then(response => {
           this.msg = response.data;
           setTimeout(() => {
@@ -165,18 +178,22 @@ export default {
     },
 
     GetCityList() {
-      const url = this.$store.getters.apiUrl + "Home/CityList/";
-      this.$axios.get(url).then(response => {
+      this.$axios.get("City/CityList/").then(response => {
         this.cityList = response.data;
       });
     },
+    getDistrict(id) {
+      this.id = id;
+      this.selected = true;
+      this.$axios.get("City/DistrictList/" + this.id).then(response => {
+        console.log(response.data);
+        this.districts = response.data;
+      });
+    },
     getManagerList() {
-      const url = this.$store.getters.apiUrl + "Home/managerList/";
-      this.$axios
-        .get(url)
-        .then(response => {
-          this.managerList = response.data;
-        });
+      this.$axios.get("Home/managerList/").then(response => {
+        this.managerList = response.data;
+      });
     }
   },
   computed: {

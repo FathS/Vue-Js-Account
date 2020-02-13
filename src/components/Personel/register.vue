@@ -1,11 +1,11 @@
 <template>
   <div class="kgfd">
-    <div class="kgfd-row">
+    <div class="kgfd-row kgfd-col-align-center">
       <div class="kgfd-col kgfd-col-12"></div>
-      <div v-if="form" id="signup" class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+      <div v-if="form" id="signup" class="kgfd-col kgfd-col-12 kgfd-col-m12 kgfd-col-s12">
         <form @submit.prevent="register(user)">
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <h1>Kayıt Ol</h1>
               <div style="color:red;">{{errorMsg}} {{okMsg}}</div>
               <br />
@@ -16,8 +16,8 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox">
                 <label for>Surname</label>
                 <input type="text" class="kgfd-form-input" id="surname" v-model="user.surname" />
@@ -25,8 +25,8 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.email.$error}">
                 <label for>E-mail</label>
                 <input
@@ -46,8 +46,8 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.age.$error}">
                 <label for>Age</label>
                 <input
@@ -63,8 +63,8 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.password.$error}">
                 <label for>Password</label>
                 <input
@@ -79,8 +79,8 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" :class="{invalid: $v.user.confirPassword.$error}">
                 <label for>Confirm Password</label>
                 <input
@@ -95,16 +95,16 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox-check" :class="{invalid: $v.terms.$error}">
-                <input type="checkbox" id="terms" @change="$v.terms.$touch()" v-model="terms" />
-                <label for="terms">Okudum, Onaylıyorum.</label>
+                <input type="checkbox" id="terms" @change="check()" v-model="terms" />
+                <label for="terms" class="kgf-checklabel">Üyeliğim Aktif Olsun.</label>
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox">
                 <button
                   type="submit"
@@ -115,15 +115,8 @@
               </div>
             </div>
           </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
-              <div class="kgfd-formbox">
-                <Button @click="addAlan()" class="kgfd-btn kgfd-btn-primary">Alan Ekle</Button>
-              </div>
-            </div>
-          </div>
-          <div class="kgfd-row">
-            <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox" v-for="(input, index) in inputs" :key="input.id">
                 <label :for="input.id">Alan</label>
                 <input
@@ -139,11 +132,16 @@
               </div>
             </div>
           </div>
+          <div class="kgfd-row kgfd-col-align-center">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
+              <div class="kgfd-formbox">
+                <Button @click="addAlan()" class="kgfd-btn kgfd-btn-primary">Alan Ekle</Button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
-      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
-        <images />
-      </div>
+      
     </div>
     <transition name="fade">
       <div
@@ -156,7 +154,7 @@
 </template>
 <script>
 import { serverBus } from "../../main";
-import images from "../Image/image.vue";
+
 import {
   required,
   email,
@@ -188,7 +186,8 @@ export default {
         email: "",
         age: "",
         password: "",
-        confirPassword: ""
+        confirPassword: "",
+        isActive: false
       },
       btnuser: "",
       color: "",
@@ -229,10 +228,8 @@ export default {
   },
   methods: {
     register(user) {
-      // const url = "http://localhost:5000/Home/Register/";
-      const url = this.$store.getters.apiUrl + "Home/Register/";
       const response = this.$axios
-        .post(url, user)
+        .post("Account/Register/", user)
         .then(response => {
           this.okMsg = response.data;
           setTimeout(() => {
@@ -274,6 +271,13 @@ export default {
     },
     onDeleteAlan(id) {
       this.inputs.splice(id, 1);
+    },
+    check() {
+      if (this.user.isActive == false) {
+        this.user.isActive = true;
+      } else {
+        this.user.isActive = false;
+      }
     }
   },
   mounted() {
@@ -284,9 +288,7 @@ export default {
       this.form = form;
     });
   },
-  components: {
-    images
-  }
+  
 };
 </script>
 <style scoped>
@@ -368,5 +370,10 @@ export default {
   right: 10px;
   top: 20;
   cursor: pointer;
+}
+
+input[type="checkbox"]:checked + .kgf-checklabel{
+    color: #109703;
+    font-weight: bold;
 }
 </style>

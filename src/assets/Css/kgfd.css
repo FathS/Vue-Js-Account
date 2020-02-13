@@ -564,33 +564,34 @@ a.kgfd-btn {
 
 
 /****** TABLES ******/
-table {
+table.kgfd-table {
     width: 100%;
 }
-table thead tr {
+table.kgfd-table thead tr {
     border-bottom: 3px solid;
 }
-table th {
+table.kgfd-table th {
     font-size: 16px;
     font-weight: 600;
     text-align: left;
 }
-table td {
+table.kgfd-table td {
     font-weight: 300;
 }
-table thead tr th i {
+table.kgfd-table thead tr th i {
     cursor: pointer;
 }
-table tbody tr {
+table.kgfd-table tbody tr {
     border-top: 1px solid;
+    cursor: pointer;
 }
-table tbody tr td a i{
+table.kgfd-table tbody tr td a i{
     margin-left: 5px !important;
 }
-table thead tr:first-child, table tbody tr:first-child {
+table.kgfd-table thead tr:first-child, table.kgfd-table tbody tr:first-child {
     border-top: none;
 }
-table th, table td {
+table.kgfd-table th, table.kgfd-table td {
     padding:10px !important;
 }
 

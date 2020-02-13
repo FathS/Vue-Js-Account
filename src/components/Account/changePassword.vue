@@ -54,10 +54,8 @@ export default {
   },
   methods: {
     changePass(user) {
-      // const url = "http://localhost:5000/Home/ChangePassword/";
-      const url = this.$store.getters.apiUrl + "Home/ChangePassword/";
       this.$axios
-        .post(url, user)
+        .post("Account/ChangePassword/", user)
         .then(response => {
           window.alert("Şifreniz Güncellenmiştir.");
           this.$router.push("/");

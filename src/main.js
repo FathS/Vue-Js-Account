@@ -13,7 +13,7 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 export const serverBus = new Vue();
 
 const axiosInstance = axios.create({
-  // baseURL: "https://jsonplaceholder.typicode.com/",
+  baseURL: "http://localhost:1256/",
   headers: {
     Authorization: 'Bearer {token}'
   }

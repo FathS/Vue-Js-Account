@@ -1,6 +1,6 @@
 <template>
   <div class="kgfd">
-    <div class="kgfd-row">
+    <div class="kgfd-row kgfd-col-align-center">
       <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label for>E-mail</label>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="kgfd-row">
+    <div class="kgfd-row kgfd-col-align-center">
       <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <label for>Password</label>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="kgfd-row">
+    <div class="kgfd-row kgfd-col-align-center">
       <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
         <div class="kgfd-formbox">
           <button type="submit" v-on:click="login(user)" class="kgfd-btn kgfd-btn-primary">Giriş Yap</button>
@@ -76,11 +76,8 @@ export default {
   },
   methods: {
     login(user) {
-      // const response = AuthService.login(user);
-      // const url = "http://localhost:5000/Home/Login/";
-      const url = this.$store.getters.apiUrl + "Home/Login/";
       this.$axios
-        .post(url, user)
+        .post("Account/Login/", user)
         .then(response => {
           console.log(response.data);
           const token = response.data.token;
@@ -106,25 +103,9 @@ export default {
             this.msg = error.response.data;
             this.activeAccount = "";
           }
-
-          // this.activeAccount = error.response.data.isActive;
         });
     },
-    // login(user) {
-    //   const url = "http://localhost:1256/Home/Login/";
-    //   this.$axios
-    //     .post(url, user)
-    //     .then(response => {
-    //       console.log(response.data);
-    //       this.$store.state.id = response.data.id;
-    //       this.$store.state.token = response.data.token;
-    //       this.$store.state.name =
-    //         response.data.name + " " + response.data.surname;
-    //       this.loginSuccessful();
-    //     })
-    //     .catch(() => this.loginFailed());
-    //   this.$store.dispatch('login', user).then(() => this.$router.push('/'))
-    // },
+
     loginSuccessful() {
       this.error = true;
       serverBus.$emit("isSign", this.isSign);
