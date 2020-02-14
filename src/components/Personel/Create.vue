@@ -25,8 +25,8 @@
         <div class="kgfd-formbox">
           <label>Gender</label>
           <el-select v-model="contact.gender" placeholder="Cinsiyet">
-            <el-option value="Erkek">Male</el-option>
-            <el-option value="Kadın">Female</el-option>
+            <el-option value="Erkek">Erkek</el-option>
+            <el-option value="Kadın">Kadın</el-option>
           </el-select>
         </div>
       </div>
@@ -157,9 +157,6 @@ export default {
     this.getManagerList();
   },
   methods: {
-    onFile(event) {
-      this.contact.image = event.target.files[0];
-    },
     createUser(contact) {
       this.$axios
         .post("Home/Add/", contact)
@@ -176,7 +173,6 @@ export default {
     keyupEvent() {
       this.$emit("selectedComponent", this.changeComp);
     },
-
     GetCityList() {
       this.$axios.get("City/CityList/").then(response => {
         this.cityList = response.data;
@@ -196,11 +192,6 @@ export default {
       });
     }
   },
-  computed: {
-    refresh() {
-      window.location.reload();
-    }
-  }
 };
 </script>
 <style scoped >

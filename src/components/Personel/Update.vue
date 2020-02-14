@@ -126,7 +126,7 @@ export default {
       });
     },
     updateUser(todosList) {
-      this.$axios.put("Home/Update/" + this.$route.params.id, todosList);
+      this.$axios.put("Home/Update/", todosList);
       return this.$router.push({ name: "todoslist" });
     }
   }

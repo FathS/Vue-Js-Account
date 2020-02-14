@@ -99,7 +99,12 @@
             <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox-check" :class="{invalid: $v.terms.$error}">
                 <input type="checkbox" id="terms" @change="check()" v-model="terms" />
-                <label for="terms" class="kgf-checklabel">Üyeliğim Aktif Olsun.</label>
+                <label for="terms" class="kgf-checklabel">
+                  Sözleşmeli
+                  <a style="color:red;"
+                    href="C:\Users\is97788\Desktop\BasicVueJs\BasicVueJs\src\assets\images"
+                  >Satış Mesafesini</a> Okudum, Onaylıyorum.
+                </label>
               </div>
             </div>
           </div>
@@ -141,7 +146,6 @@
           </div>
         </form>
       </div>
-      
     </div>
     <transition name="fade">
       <div
@@ -287,8 +291,7 @@ export default {
     serverBus.$on("form", form => {
       this.form = form;
     });
-  },
-  
+  }
 };
 </script>
 <style scoped>
@@ -371,9 +374,11 @@ export default {
   top: 20;
   cursor: pointer;
 }
-
-input[type="checkbox"]:checked + .kgf-checklabel{
-    color: #109703;
-    font-weight: bold;
+.kgf-checklabel {
+  color: #910505;
+}
+input[type="checkbox"]:checked + .kgf-checklabel {
+  color: #109703;
+  font-weight: bold;
 }
 </style>
