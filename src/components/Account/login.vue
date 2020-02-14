@@ -84,7 +84,8 @@ export default {
           const name = response.data.name + " " + response.data.surname;
           const id = response.data.id;
           const expire = response.data.token.expire;
-          this.$store.dispatch("login", { token, name, id, expire });
+          const role = response.data.role;
+          this.$store.dispatch("login", { token, name, id, expire, role });
           this.loginSuccessful();
         })
         .catch(error => {

@@ -12,7 +12,7 @@ const getDefaultState = () => {
         token: false,
         name: "",
         id: null,
-        apiUrl: "http://localhost:1256/"
+        role: "",
     };
 };
 
@@ -34,12 +34,12 @@ export const store = new Vuex.Store({
         getUserId: state => {
             return state.id
         },
+        getRole: state => {
+            return state.role
+        },
         changeName: state => {
             return " Sayın " + state.name + " Sayfaya Hoş Geldin"
         },
-        apiUrl: state => {
-            return state.apiUrl
-        }
     },
     mutations: {
         authUser: (state, token) => {
@@ -51,15 +51,19 @@ export const store = new Vuex.Store({
         getUserId: (state, id) => {
             state.id = id;
         },
+        getRole: (state, role) => {
+            state.role = role;
+        },
         RESET: state => {
             Object.assign(state, getDefaultState());
         }
     },
     actions: {
-        login: ({ commit, dispatch }, { token, name, id }) => {
+        login: ({ commit, dispatch }, { token, name, id, role }) => {
             commit('authUser', token);
             commit('getUser', name);
             commit('getUserId', id);
+            commit('getRole', role);
 
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

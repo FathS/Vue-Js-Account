@@ -12,6 +12,10 @@
           <div v-if="token" class="link-btn">City</div>
         </router-link>
         <div v-if="token" class="link-btn">Manager</div>
+        <router-link to="/Accounts" active-class="active">
+          <div v-if="token && role == 'Admin'" class="link-btn">Account Setting (Admin)</div>
+        </router-link>
+        <div v-if="token && role == 'User'" class="link-btn">Role User</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
         <a v-if="isSign" href class="btn-class">Button</a>
@@ -168,6 +172,9 @@ export default {
     //storeden gelen Adı Soyadı burada değişken olarak kullanmak için yazılan computed methodu
     name() {
       return this.$store.getters.getUser;
+    },
+    role() {
+      return this.$store.getters.getRole;
     }
   }
 };

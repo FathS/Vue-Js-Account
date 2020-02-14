@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import TodosList from '../components/Personel/List.vue'
 import TodosDetail from '../components/Personel/update.vue'
+import AccountDetail from '../components/Account/AccountUpdate.vue'
 import Register from '../components/Personel/register.vue'
 import Login from '../components/Account/login.vue'
 import ChangePassword from '../components/Account/changePassword.vue'
 import Home from '../components/Home.vue'
 import ActiveAccount from '../components/Account/activeAccount.vue'
 import City from '../components/City/city.vue'
+import Account from '../components/Account/AccountList.vue'
 
 Vue.use(Router)
 
@@ -51,6 +53,10 @@ export default new Router({
       component: ActiveAccount
     },
     {
+      path: '/Accounts',
+      component: Account
+    },
+    {
       path: '/city',
       component: City
     },
@@ -58,6 +64,11 @@ export default new Router({
       path: '/:id/edit',
       name: 'detail',
       component: TodosDetail
+    },
+    {
+      path: '/:id/edit',
+      name: 'detailAccount',
+      component: AccountDetail
     },
     // { path: '/', redirect: { name: 'home' } },
     // { path: '*', redirect: { name: 'home' } }
