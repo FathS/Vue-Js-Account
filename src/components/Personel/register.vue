@@ -7,6 +7,10 @@
           <div class="kgfd-row kgfd-col-align-center">
             <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <h1>Kayıt Ol</h1>
+              <div style="background-color:lightgray; width:100%; height:7px;">
+                <div :style="{width: sayi + '%', backgroundColor: blue}" style=" height:7px;"></div>
+              </div>
+              <p style="font-weight:bold;">Kalan Süre: {{sayi}}</p>
               <div style="color:red;">{{errorMsg}} {{okMsg}}</div>
               <br />
               <div class="kgfd-formbox">
@@ -95,13 +99,29 @@
               </div>
             </div>
           </div>
+          <div class="kgfd-row kgfd-col-align-center" v-if="roles == 'Admin'">
+            <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
+              <div class="kgfd-formbox">
+                <label for>Role</label>
+                <el-select v-model="user.role" placeholder="Role Seçiniz">
+                  <el-option value="Admin">Admin</el-option>
+                  <el-option value="User">User</el-option>
+                </el-select>
+                <!-- <select class="kgfd-form-input" v-model="user.role" aria-placeholder="Test">
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
+                </select>-->
+              </div>
+            </div>
+          </div>
           <div class="kgfd-row kgfd-col-align-center">
             <div class="kgfd-col kgfd-col-3 kgfd-col-m12 kgfd-col-s12">
               <div class="kgfd-formbox-check" :class="{invalid: $v.terms.$error}">
                 <input type="checkbox" id="terms" @change="check()" v-model="terms" />
                 <label for="terms" class="kgf-checklabel">
                   Sözleşmeli
-                  <a style="color:red;"
+                  <a
+                    style="color:red;"
                     href="C:\Users\is97788\Desktop\BasicVueJs\BasicVueJs\src\assets\images"
                   >Satış Mesafesini</a> Okudum, Onaylıyorum.
                 </label>
@@ -191,7 +211,8 @@ export default {
         age: "",
         password: "",
         confirPassword: "",
-        isActive: false
+        isActive: false,
+        role: null
       },
       btnuser: "",
       color: "",
@@ -199,7 +220,10 @@ export default {
       inputs: [],
       terms: false,
       errorMsg: "",
-      okMsg: ""
+      okMsg: "",
+      sayi: 100,
+      width: "",
+      blue: "blue"
     };
   },
   validations: {
@@ -236,9 +260,11 @@ export default {
         .post("Account/Register/", user)
         .then(response => {
           this.okMsg = response.data;
-          setTimeout(() => {
-            this.$router.push("/login");
-          }, 3000);
+          if (roles == "") {
+            setTimeout(() => {
+              this.$router.push("/login");
+            }, 3000);
+          }
         })
         .catch(error => {
           this.errorMsg = error.response.data;
@@ -282,6 +308,19 @@ export default {
       } else {
         this.user.isActive = false;
       }
+    },
+    countDownTimer() {
+      if (this.sayi > 0) {
+        if (this.sayi < 15) {
+          this.blue = "red";
+        }
+        setTimeout(() => {
+          this.sayi -= 1;
+          this.countDownTimer();
+        }, 1000);
+      } else {
+        // window.location.reload();
+      }
     }
   },
   mounted() {
@@ -291,6 +330,12 @@ export default {
     serverBus.$on("form", form => {
       this.form = form;
     });
+    this.countDownTimer();
+  },
+  computed: {
+    roles() {
+      return this.$store.getters.getRole;
+    }
   }
 };
 </script>

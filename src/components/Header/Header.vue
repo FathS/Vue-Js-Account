@@ -25,7 +25,7 @@
         <router-link v-if="!token" to="/login" active-class="active">
           <a class="link-btn" href="Javascript:void(0);">Login</a>
         </router-link>
-        <el-dropdown v-if="token">
+        <el-dropdown v-if="token" style="padding:10px 0;">
           <span class="el-dropdown-link">
             {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -113,7 +113,8 @@ export default {
       icon: hamburgers,
       isActive: true,
       isShow: false,
-      width: ""
+      width: "",
+      tokenss: this.$store.state.token
     };
   },
 

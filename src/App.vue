@@ -11,9 +11,44 @@
 <script>
 import Header from "./components/Header/Header.vue";
 export default {
+  data() {
+    return {
+      tokenTime: 3600,
+      token: this.$store.state.token
+    };
+  },
   components: {
     Header
   },
+  methods: {
+    tokenExpire() {
+      if (this.token) {
+        if (this.tokenTime > 0) {
+          setTimeout(() => {
+            this.tokenTime -= 1;
+            this.tokenExpire();
+          }, 1000);
+        } else {
+          window.alert(
+            "Oturum süreniz bitmiştir. Lütfen Tekrar Giriş Yapınız."
+          );
+          this.logout();
+        }
+      }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
+    }
+  },
+  created() {
+    this.tokenExpire();
+  },
+  computed: {
+    // token() {
+    //   return this.$store.getters.isLoggedIn;
+    // }
+  }
 };
 </script>
 

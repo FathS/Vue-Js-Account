@@ -146,6 +146,7 @@ body {
 }
 .kgfd-grid-nomargin {
     margin-bottom: 0 !important;
+    margin-top: 0 !important;
 }
 .kgfd-grid-nopadding {
     padding-left: 0 !important;
@@ -272,7 +273,7 @@ body {
     position: relative;
     width: 100%;
     margin: 20px auto 0 auto;
-    padding: 20px 0;
+    padding: 20px 20px;
     border-radius: 8px;
 }
 .kgfd-card-fullh {
@@ -568,7 +569,7 @@ table.kgfd-table {
     width: 100%;
 }
 table.kgfd-table thead tr {
-    border-bottom: 3px solid;
+    border-bottom: 2px solid gray;
 }
 table.kgfd-table th {
     font-size: 16px;
@@ -579,11 +580,11 @@ table.kgfd-table td {
     font-weight: 300;
 }
 table.kgfd-table thead tr th i {
-    cursor: pointer;
+    
 }
 table.kgfd-table tbody tr {
     border-top: 1px solid;
-    cursor: pointer;
+    
 }
 table.kgfd-table tbody tr td a i{
     margin-left: 5px !important;
@@ -592,7 +593,7 @@ table.kgfd-table thead tr:first-child, table.kgfd-table tbody tr:first-child {
     border-top: none;
 }
 table.kgfd-table th, table.kgfd-table td {
-    padding:10px !important;
+    padding:10px 20px!important;
 }
 
 
@@ -763,11 +764,12 @@ table.kgfd-table th, table.kgfd-table td {
     font-family: 'Open Sans';
 }
 .kgfd-formbox .el-select .el-input__inner{
-    padding: 0 10px;
+    padding: 5px 10px;
     font-family: inherit;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.2;
+    margin: 15px 0;
 }
 .el-dropdown-link{
     cursor: pointer;

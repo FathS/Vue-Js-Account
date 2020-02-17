@@ -15,18 +15,25 @@
       </div>
     </div>
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-4">
-        <el-select v-model="city.id" placeholder="Şehir Seçiniz" @change="getDistrict()">
-          <el-option v-for="city in city" :key="city.value" :label="city.text" :value="city.value"></el-option>
-        </el-select>
-        <el-select v-model="districts.id" placeholder="İlçe Seçiniz" v-if="selected">
-          <el-option
-            v-for="district in districts"
-            :key="district.id"
-            :label="district.name"
-            :value="district.id"
-          ></el-option>
-        </el-select>
+      <div class="kgfd-col kgfd-col-2">
+        <div class="kgfd-formbox">
+          <el-select v-model="city.id" placeholder="Şehir Seçiniz" @change="getDistrict()">
+            <el-option
+              v-for="city in city"
+              :key="city.value"
+              :label="city.text"
+              :value="city.value"
+            ></el-option>
+          </el-select>
+          <el-select v-model="districts.id" placeholder="İlçe Seçiniz" v-if="selected">
+            <el-option
+              v-for="district in districts"
+              :key="district.id"
+              :label="district.name"
+              :value="district.id"
+            ></el-option>
+          </el-select>
+        </div>
       </div>
     </div>
     <div class="kgfd-row" v-if="selected">

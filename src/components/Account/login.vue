@@ -66,7 +66,9 @@ export default {
       btndisplay: "",
       msg: "",
       msgShow: true,
-      activeAccount: ""
+      activeAccount: "",
+      tokens: this.$store.getters.isLoggedIn,
+      tokenTime: 10
     };
   },
   mounted() {
@@ -120,7 +122,6 @@ export default {
       this.error = true;
       this.btnLogin = "Hatalı Giriş";
     },
-
     timerAlert() {
       setTimeout(() => {
         this.btndisplay = "none";

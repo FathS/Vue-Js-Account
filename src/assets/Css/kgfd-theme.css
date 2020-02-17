@@ -461,10 +461,10 @@
 
 /****** TABLES ******/
 table.kgfd-table thead tr, table.kgfd-table tbody tr {
-    border-color: #eeedeb;
+    border-color: #eeeeee;
 }
 table.kgfd-table thead tr th i {
-    color: #c0c4cc;
+    color: #666666;
 }
 table.kgfd-table thead tr th i.kgfd-active-icon{
     color: #282724;
@@ -472,6 +472,7 @@ table.kgfd-table thead tr th i.kgfd-active-icon{
 table.kgfd-table tbody tr td i{
     color: #606266;
 }
+
 
 
 
