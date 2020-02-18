@@ -363,12 +363,15 @@
     color: #35425b;
 }
 .kgfd-btn-link:not(:disabled).kgfd-btn-dark:hover,
-.kgfd-btn-link:not(:disabled).kgfd-btn-dark:active,
-.kgfd-btn-link:not(:disabled).kgfd-btn-dark:focus,
-.kgfd-btn-link:not(.kgfd-disabled).kgfd-btn-dark:hover,
-.kgfd-btn-link:not(.kgfd-disabled).kgfd-btn-dark:active,
-.kgfd-btn-link:not(.kgfd-disabled).kgfd-btn-dark:focus {
+/* .kgfd-btn-link:not(:disabled).kgfd-btn-dark:active,
+.kgfd-btn-link:not(:disabled).kgfd-btn-dark:focus, */
+.kgfd-btn-link:not(.kgfd-disabled).kgfd-btn-dark:hover
+/* .kgfd-btn-link:not(.kgfd-disabled).kgfd-btn-dark:active,
+.kgfd-btn-link:not(.kgfd-disabled).kgfd-btn-dark:focus */
+ {
     color: #35425b;
+    opacity: 0.7;
+    transform: scale(1.1);
 }
 .kgfd-btn-link.kgfd-btn-info {
     color: #189fa6;
@@ -464,13 +467,15 @@ table.kgfd-table thead tr, table.kgfd-table tbody tr {
     border-color: #eeeeee;
 }
 table.kgfd-table thead tr th i {
-    color: #666666;
+    color: #b3b3b3;
 }
-table.kgfd-table thead tr th i.kgfd-active-icon{
-    color: #282724;
-}
+
 table.kgfd-table tbody tr td i{
-    color: #606266;
+    color: #999999;
+}
+table.kgfd-table tbody tr td i:hover{
+    color: #89b5c7;
+    transition:all 200ms ease;
 }
 
 

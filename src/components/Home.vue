@@ -18,14 +18,38 @@ const close = '<i class="fa fa-times" aria-hidden="true"></i>';
 export default {
   data() {
     return {
-      selected: "app-images"
+      selected: "app-images",
+      tokenTime: 3000,
+      token: this.$store.getters.isLoggedIn
     };
   },
   methods: {
-    closeMenu() {}
+    closeMenu() {},
+    tokenExpire() {
+      if (this.token != null) {
+        if (this.tokenTime > 0) {
+          setTimeout(() => {
+            this.tokenTime -= 1;
+            this.tokenExpire();
+          }, 1000);
+        } else {
+          window.alert(
+            "Oturum süreniz bitmiştir. Lütfen Tekrar Giriş Yapınız."
+          );
+          this.logout();
+        }
+      }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
+    }
   },
   components: {
     "app-images": images
+  },
+  created() {
+    this.tokenExpire();
   },
   computed: {
     name() {

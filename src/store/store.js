@@ -9,7 +9,7 @@ Vue.use(axios)
 
 const getDefaultState = () => {
     return {
-        token: false,
+        token: "",
         name: "",
         id: null,
         role: "",

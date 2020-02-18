@@ -6,18 +6,23 @@
           <div class="link-btn">Home</div>
         </router-link>
         <router-link v-if="token" to="/Todoslist" active-class="active">
-          <div class="link-btn">Todoslist</div>
+          <div class="link-btn">User</div>
         </router-link>
         <router-link v-if="token" to="/City" active-class="active">
           <div v-if="token" class="link-btn">City</div>
         </router-link>
         <div v-if="token" class="link-btn">Manager</div>
         <router-link to="/Accounts" active-class="active">
-          <div v-if="token && role == 'Admin'" class="link-btn">Account Setting (Admin)</div>
+          <div v-if="token && role == 'Admin'" class="link-btn">Personel (Admin)</div>
         </router-link>
         <div v-if="token && role == 'User'" class="link-btn">Role User</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
+        <ul class="kgfd-doviz" v-for="item in dovizs" :key="item.id">
+          <li>{{item.dolar}}</li>
+          <li>{{item.euro}}</li>
+        </ul>
+
         <a v-if="isSign" href class="btn-class">Button</a>
         <router-link v-if="!token" to="/register" active-class="active">
           <a class="link-btn" href="Javascript:void(0);">Register</a>
@@ -101,6 +106,7 @@ const close = '<i class="fa fa-times" aria-hidden="true"></i>';
 export default {
   data() {
     return {
+      dovizs: [],
       isSign: false,
       mystyle: {
         display: "block",
@@ -119,6 +125,13 @@ export default {
   },
 
   methods: {
+    getDoviz() {
+      this.$axios.get("doviz/index").then(response => {
+        this.dovizs = response.data;
+        console.log(response.data);
+      });
+    },
+
     logout() {
       serverBus.$emit("mystyle", this.mystyle.display);
       this.mystyle.display = "none";
@@ -164,6 +177,7 @@ export default {
     serverBus.$on("isSign", isSign => {
       this.isSign = isSign;
     });
+    this.getDoviz();
   },
   //storeden gelen token i burada değişken olarak kullanmak için yazılan computed methodu
   computed: {
@@ -258,6 +272,16 @@ export default {
 .Welcome {
   font-weight: bold;
   font-size: 14px;
+}
+
+.kgfd-doviz {
+  list-style: none;
+  display: inline-block;
+}
+.kgfd-doviz li {
+  display: inline-block;
+  padding: 0 7px;
+  font-weight: bold;
 }
 @media only screen and (max-width: 991px) {
   .kgfd-header {
