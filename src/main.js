@@ -55,5 +55,6 @@ new Vue({
     if (!this.$store.getters.isLoggedIn) {
       this.$router.push("/login");
     }
-  }
+  },
+  
 }).$mount('#app')

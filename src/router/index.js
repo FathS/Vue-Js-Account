@@ -10,6 +10,7 @@ import Home from '../components/Home.vue'
 import ActiveAccount from '../components/Account/activeAccount.vue'
 import City from '../components/City/city.vue'
 import Account from '../components/Account/AccountList.vue'
+import HavaDurum from '../components/View/HavaDurum.vue'
 
 Vue.use(Router)
 
@@ -59,6 +60,10 @@ export default new Router({
     {
       path: '/city',
       component: City
+    },
+    {
+      path: '/HavaDurum',
+      component: HavaDurum,
     },
     {
       path: '/:id/edit',

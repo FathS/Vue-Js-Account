@@ -18,12 +18,19 @@
         <div v-if="token && role == 'User'" class="link-btn">Role User</div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
-        <ul class="kgfd-doviz" v-for="item in dovizs" :key="item.id">
-          <li>{{item.dolar}}</li>
-          <li>{{item.euro}}</li>
+        <ul class="kgfd-doviz" v-for="item in dovizs" :key="item">
+          <li>
+            Dolar:
+            <span>{{item.dolar}}</span>
+          </li>
+          <li>
+            Euro:
+            <span class="clock">{{item.euro}}</span>
+          </li>
         </ul>
 
-        <a v-if="isSign" href class="btn-class">Button</a>
+        <a v-if="isSign" href class="btn-class"></a>
+        <span class="clocks">{{clock}}</span>
         <router-link v-if="!token" to="/register" active-class="active">
           <a class="link-btn" href="Javascript:void(0);">Register</a>
         </router-link>
@@ -47,6 +54,20 @@
             </el-dropdown-item>
             <el-dropdown-item>
               <span v-on:click="logout()">Logout</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-dropdown style="padding:10px 0;">
+          <span class="el-dropdown-link">
+            Daha Fazla...
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <router-link
+                to="/HavaDurum/"
+                style="text-decoration:none; color:inherit;"
+              >Hava Durumu</router-link>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -103,6 +124,7 @@
 import { serverBus } from "../../main";
 const hamburgers = '<i class="fa fa-bars" aria-hidden="true"></i>';
 const close = '<i class="fa fa-times" aria-hidden="true"></i>';
+
 export default {
   data() {
     return {
@@ -120,18 +142,29 @@ export default {
       isActive: true,
       isShow: false,
       width: "",
-      tokenss: this.$store.state.token
+      tokenss: this.$store.state.token,
+      clock: new Date().toLocaleString()
+      // day: new Date()
     };
   },
 
   methods: {
     getDoviz() {
-      this.$axios.get("doviz/index").then(response => {
-        this.dovizs = response.data;
-        console.log(response.data);
-      });
+      this.$axios
+        .get("Doviz/Index")
+        .then(response => {
+          this.dovizs = response.data;
+          console.log(response.data);
+        })
+        .catch(error => {
+          window.alert(error.response.data);
+        });
     },
-
+    RefreshKur() {
+      setTimeout(() => {
+        this.getDoviz();
+      }, 10000);
+    },
     logout() {
       serverBus.$emit("mystyle", this.mystyle.display);
       this.mystyle.display = "none";
@@ -177,7 +210,6 @@ export default {
     serverBus.$on("isSign", isSign => {
       this.isSign = isSign;
     });
-    this.getDoviz();
   },
   //storeden gelen token i burada değişken olarak kullanmak için yazılan computed methodu
   computed: {
@@ -191,6 +223,10 @@ export default {
     role() {
       return this.$store.getters.getRole;
     }
+  },
+  created() {
+    this.getDoviz();
+    this.RefreshKur();
   }
 };
 </script>
@@ -282,6 +318,15 @@ export default {
   display: inline-block;
   padding: 0 7px;
   font-weight: bold;
+  font-size: 14px;
+}
+.kgfd-doviz li span {
+  color: #376937;
+}
+.clocks {
+  font-weight: bold;
+  padding-right: 10px;
+  font-size: 14px;
 }
 @media only screen and (max-width: 991px) {
   .kgfd-header {
