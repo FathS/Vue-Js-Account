@@ -17,7 +17,8 @@
     <div class="kgfd-row">
       <div class="kgfd-col kgfd-col-2">
         <div class="kgfd-formbox">
-          <el-select v-model="city.id" placeholder="Şehir Seçiniz" @change="getDistrict()">
+          <el-select v-model="city.id" @change="getDistrict()" placeholder="Şehir Seçiniz">
+            <el-option label="Şehir Seçiniz" disabled></el-option>
             <el-option
               v-for="city in city"
               :key="city.value"

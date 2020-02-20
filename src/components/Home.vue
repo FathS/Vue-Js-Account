@@ -1,10 +1,8 @@
 <template>
   <div class="kgfd">
     <div class="kgfd-row">
-      <div class="kgfd-col">
-        <p v-if="token">Sayın {{name}} Sayfaya Hoş Geldin- {{token}}</p>
-      </div>
-      <div class="kgfd-col kgfd-col-6 kgfd-col-m12 kgfd-col-s12">
+      <div class="kgfd-col kgfd-col-12 kgfd-grid-nopadding kgfd-col-m12 kgfd-col-s12">
+        <p style="font-weight:bold;" v-if="token">Sayın {{name}} Sayfaya Hoş Geldin</p>
         <component :is="selected"></component>
       </div>
     </div>
@@ -70,4 +68,11 @@ export default {
 };
 </script>
 <style scoped>
+.test {
+  background-image: url("../assets/images/clouds.png");
+
+  width: 150px;
+  height: 50px;
+  z-index: 1;
+}
 </style>

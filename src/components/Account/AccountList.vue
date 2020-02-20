@@ -84,6 +84,7 @@
               <th style="text-align:center;">Düzenle</th>
               <th style="text-align:center;">Sil</th>
               <th>Hesap Durum</th>
+              <th>Resim</th>
             </tr>
           </thead>
           <tbody>
@@ -122,7 +123,9 @@
                   style="cursor:pointer;"
                 ></i>
               </td>
-              <td v-else>Admin Silinemez :)</td>
+              <td v-else style="text-align:center;">
+                <i class="fa fa-trash" aria-hidden="true" style="cursor:not-allowed;"></i>
+              </td>
 
               <td v-if="account.isActive">
                 <span style="color:green; font-weight:bold;">Aktif</span> -
@@ -137,6 +140,11 @@
                   @click="AccountisActive(account.id)"
                   style="cursor:pointer; color:green;"
                 >Aktif Et</span>
+              </td>
+
+              <td>
+                <img src="../../assets/images/cloud.png" width="20px;" />
+                <!-- <img :src="getImgUrl(account.image)" alt="haha" width="20px;" /> -->
               </td>
             </tr>
           </tbody>
@@ -153,7 +161,8 @@ export default {
       accounts: [],
       link: false,
       id: 1,
-      isActive: false
+      isActive: false,
+      path: "../../assets/images/"
     };
   },
   created() {
@@ -164,6 +173,7 @@ export default {
     AccountList() {
       this.$axios.get("Admin/AccountList/" + this.id).then(response => {
         this.accounts = response.data;
+        console.log(response.data);
       });
     },
     activeList() {
@@ -181,6 +191,9 @@ export default {
       this.id = id;
       this.isActive = true;
       this.AccountList();
+    },
+    getImgUrl(pic) {
+      return require("../../assets/images/" + pic);
     },
     AccountisActive(id) {
       this.$axios

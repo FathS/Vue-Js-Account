@@ -16,16 +16,98 @@
           <div v-if="token && role == 'Admin'" class="link-btn">Personel (Admin)</div>
         </router-link>
         <div v-if="token && role == 'User'" class="link-btn">Role User</div>
+        <div
+          @mouseover="changeOk()"
+          @mouseleave="changeMouseLeave()"
+          class="link-btn"
+          style="transform: scale(1);"
+        >
+          Tümü
+          <i
+            :class="{iconActive: iconActive, iconDisabled:!iconActive }"
+            class="fa fa-chevron-up"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div
+          class="acilir-menu"
+          :class="{activeMenu: iconActive}"
+          @mouseover="changeOk()"
+          @mouseleave="changeMouseLeave()"
+        >
+          <ul class="menu-link">
+            <li>
+              <router-link to="/">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                Home
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/Todoslist">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                User
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/City">
+                <i class="fa fa-building" aria-hidden="true"></i>
+                City
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/Manager">
+                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                Manager
+              </router-link>
+            </li>
+            <li v-if="token && role == 'Admin'">
+              <router-link to="/Accounts">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                Personel (Admin)
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/HavaDurum">
+                <i class="fa fa-sun-o" aria-hidden="true"></i>
+                Hava Durumu
+              </router-link>
+            </li>
+            <li>
+              <i class="fa fa-futbol-o" aria-hidden="true"></i>
+              Spor
+            </li>
+            <li>
+              <i class="fa fa-money" aria-hidden="true"></i>
+              Finans
+            </li>
+            <li>
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              Gündem
+            </li>
+            <li>
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              Moda
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
+        <span v-for="item in hava" :key="item" class="hava-durum-name">
+          {{item.il}}
+          <span style="display:block;">
+            {{item.mak}}
+            <img width="15" src="../../assets/images/hot.png" />
+          </span>
+        </span>
+        <img class="hava-durum-img" src="../../assets/images/cloud.png" width="20px;" alt />
         <ul class="kgfd-doviz" v-for="item in dovizs" :key="item">
           <li>
-            Dolar:
+            $:
             <span>{{item.dolar}}</span>
           </li>
           <li>
-            Euro:
-            <span class="clock">{{item.euro}}</span>
+            €:
+            <span>{{item.euro}}</span>
           </li>
         </ul>
 
@@ -54,20 +136,6 @@
             </el-dropdown-item>
             <el-dropdown-item>
               <span v-on:click="logout()">Logout</span>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown style="padding:10px 0;">
-          <span class="el-dropdown-link">
-            Daha Fazla...
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              <router-link
-                to="/HavaDurum/"
-                style="text-decoration:none; color:inherit;"
-              >Hava Durumu</router-link>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -143,7 +211,10 @@ export default {
       isShow: false,
       width: "",
       tokenss: this.$store.state.token,
-      clock: new Date().toLocaleString()
+      clock: new Date().toDateString(),
+      iconActive: false,
+      cityname: "İSTANBUL",
+      hava: {}
       // day: new Date()
     };
   },
@@ -160,10 +231,17 @@ export default {
           window.alert(error.response.data);
         });
     },
-    RefreshKur() {
-      setTimeout(() => {
-        this.getDoviz();
-      }, 10000);
+    getHavaDurum(cityName) {
+      this.$axios
+        .get("Hava/Durum/", {
+          params: {
+            cityName: this.cityname
+          }
+        })
+        .then(response => {
+          this.hava = response.data;
+          console.log(response.data);
+        });
     },
     logout() {
       serverBus.$emit("mystyle", this.mystyle.display);
@@ -204,6 +282,16 @@ export default {
             this.errMsg = error.response.data;
           });
       }
+    },
+    changeOk() {
+      if (!this.iconActive) {
+        this.iconActive = true;
+      }
+    },
+    changeMouseLeave() {
+      if (this.iconActive) {
+        this.iconActive = false;
+      }
     }
   },
   mounted() {
@@ -226,13 +314,13 @@ export default {
   },
   created() {
     this.getDoviz();
-    this.RefreshKur();
+    this.getHavaDurum();
   }
 };
 </script>
 <style scoped>
 .menuslide {
-  background-color: #3c9797;
+  background-color: #86bde2;
   position: fixed;
   height: 100%;
   width: 50px;
@@ -265,9 +353,17 @@ export default {
 .menu-link li {
   padding: 0 0 15px 0;
   cursor: pointer;
+  display: block;
 }
 .menu-link li:hover {
-  opacity: 0.5;
+  opacity: 0.9;
+}
+.menu-link li i {
+  color: #5a5a5a;
+  font-size: 14px;
+}
+.menu-link li:hover i {
+  transform: scale(1.5);
 }
 
 .kgfd-header {
@@ -327,6 +423,67 @@ export default {
   font-weight: bold;
   padding-right: 10px;
   font-size: 14px;
+}
+
+.acilir-menu {
+  position: absolute;
+  top: 42px;
+  background-color: #86bde2;
+  box-shadow: 1px 1px 13px 2px #aac7db;
+  opacity: 1;
+  width: 0px;
+  max-height: 100px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #f1f1f1 transparent;
+  z-index: 1;
+  border-radius: 0 0 4px 4px;
+  transition: all 300ms ease-out;
+}
+.activeMenu {
+  width: 1000px;
+  max-height: 300px;
+}
+/* #openMenu:hover + .acilir-menu {
+  display: block;
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+} */
+
+/* #openMenu:hover #icons {
+  transform: translate(0) rotate(180deg);
+  transition: all 300ms ease-out;
+} */
+
+.iconActive {
+  transform: translate(0) rotate(180deg);
+  transition: all 300ms ease-out;
+}
+.iconDisabled {
+  transform: translate(0) rotate(0deg);
+  transition: all 300ms ease-out;
+}
+/* .acilir-menu:hover i {
+  transform: translate(0) rotate(180deg);
+  transition: all 300ms ease-out;
+} */
+.acilir-menu:hover {
+  display: block;
+  -webkit-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+.hava-durum-name {
+  position: absolute;
+  left: 250px;
+  top: 2px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.hava-durum-img {
+  position: absolute;
+  left: 250px;
+  top: 14px;
 }
 @media only screen and (max-width: 991px) {
   .kgfd-header {

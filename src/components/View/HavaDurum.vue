@@ -9,13 +9,13 @@
         </select>-->
         <el-select v-model="name" placeholder="Şehir Seçiniz" @change="getHavaDurum(name)">
           <el-option label="Tüm İller" value></el-option>
-          <el-option label="İstanbul" value="İSTANBUL"></el-option>
-          <el-option label="Ankara" value="ANKARA"></el-option>
+          <el-option v-for="item in cityList" :key="item" :label="item.il" :value="item.il"></el-option>
+          <!-- <el-option label="Ankara" value="ANKARA"></el-option>
           <el-option label="İzmir" value="İZMİR"></el-option>
           <el-option label="Amasya" value="AMASYA"></el-option>
           <el-option label="Van" value="VAN"></el-option>
           <el-option label="Bursa" value="BURSA"></el-option>
-          <el-option label="Manisa" value="MANİSA"></el-option>
+          <el-option label="Manisa" value="MANİSA"></el-option>-->
         </el-select>
       </div>
     </div>
@@ -26,15 +26,15 @@
             <td style="font-size:10px;">{{month}} - {{date}} - {{fullyear}}</td>
             <td>{{item.il}}</td>
             <td>{{item.bolge}} Bölgesi</td>
-            <td v-if="item.mak > 14" style="color:red;">
+            <td v-if="item.mak >= 14" style="color:red;">
               {{item.mak}}
               <i class="fa fa-thermometer-full" aria-hidden="true"></i>
             </td>
-            <td v-else-if="item.mak < 15 && item.mak > 9" style="color:orange;">
+            <td v-else-if="item.mak <= 15 && item.mak >= 9" style="color:orange;">
               {{item.mak}}
               <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
             </td>
-            <td v-else-if="item.mak < 8" style="color:green;">
+            <td v-else-if="item.mak <= 8" style="color:green;">
               {{item.mak}}
               <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
             </td>
@@ -88,11 +88,6 @@
           <el-pagination layout="prev, pager, next" :total="50"></el-pagination>
         </div>-->
       </div>
-      <!-- <div v-for="item in hava" :key="item" class="kgfd-col kgfd-col-3">
-        <p>Name: {{item.il}}</p>
-        <p>Durum: {{item.durum}}</p>
-        <p>Maksimum Sıcaklık {{item.mak}}</p>
-      </div>-->
     </div>
   </div>
 </template>
@@ -102,6 +97,7 @@ export default {
     return {
       name: "",
       hava: [],
+      cityList: [],
       date: new Date().getDate(),
       month: new Date().getMonth() + 1,
       fullyear: new Date().getFullYear(),
@@ -111,7 +107,9 @@ export default {
   },
   mounted() {
     this.getHavaDurum();
+    this.getCitylist();
   },
+  created() {},
   methods: {
     getHavaDurum(cityName, pageSize, CurrentPage) {
       console.log(this.name);
@@ -131,6 +129,19 @@ export default {
     currentPagination(sayi) {
       this.current = sayi;
       this.getHavaDurum();
+    },
+    getCitylist() {
+      this.$axios
+        .get("Hava/CityList/")
+        .then(response => {
+          console.log(response.data);
+          this.cityList = response.data;
+        })
+        .catch(
+          error(x => {
+            window.alert(error.response.data);
+          })
+        );
     }
   }
 };
