@@ -11,7 +11,8 @@ import ActiveAccount from '../components/Account/activeAccount.vue'
 import City from '../components/City/city.vue'
 import Account from '../components/Account/AccountList.vue'
 import HavaDurum from '../components/View/HavaDurum.vue'
-
+import Inventory from '../components/Inventory/inventory.vue'
+import InventoryAdd from '../components/Inventory/inventoryAdd.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -60,6 +61,14 @@ export default new Router({
     {
       path: '/city',
       component: City
+    },
+    {
+      path: '/Inventory',
+      component: Inventory
+    },
+    {
+      path: '/InventoryAdd',
+      component: InventoryAdd
     },
     {
       path: '/HavaDurum',

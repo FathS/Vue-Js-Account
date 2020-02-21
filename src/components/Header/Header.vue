@@ -11,7 +11,43 @@
         <router-link v-if="token" to="/City" active-class="active">
           <div v-if="token" class="link-btn">City</div>
         </router-link>
-        <div v-if="token" class="link-btn">Manager</div>
+        <div
+          v-if="token"
+          @mouseover="changeActiveinv()"
+          @mouseleave="changeActiveinvLeave()"
+          class="link-btn"
+          style="transform: scale(1);"
+        >
+          Inventory
+          <i
+            :class="{iconActive: isActiveinv, iconDisabled:!isActiveinv }"
+            class="fa fa-chevron-up"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div
+          @mouseover="changeActiveinv()"
+          @mouseleave="changeActiveinvLeave()"
+          class="acilir-menu-inventory"
+          :class="{activeMenuinv:isActiveinv}"
+        >
+          <ul class="menu-link-inventory">
+            <li>
+              <router-link to="/Inventory">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i> Inventory List
+              </router-link>
+            </li>
+
+            <li>
+              <router-link to="/InventoryAdd">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i> Inventory Create
+              </router-link>
+            </li>
+            <li>
+              <i class="fa fa-chevron-right" aria-hidden="true"></i> Inventory To User Transfer
+            </li>
+          </ul>
+        </div>
         <router-link to="/Accounts" active-class="active">
           <div v-if="token && role == 'Admin'" class="link-btn">Personel (Admin)</div>
         </router-link>
@@ -208,11 +244,13 @@ export default {
       },
       icon: hamburgers,
       isActive: true,
+      isActiveinv: false,
       isShow: false,
       width: "",
       tokenss: this.$store.state.token,
       clock: new Date().toDateString(),
       iconActive: false,
+      isActiveinv: false,
       cityname: "İSTANBUL",
       hava: {}
       // day: new Date()
@@ -292,6 +330,16 @@ export default {
       if (this.iconActive) {
         this.iconActive = false;
       }
+    },
+    changeActiveinv() {
+      if (!this.isActiveinv) {
+        this.isActiveinv = true;
+      }
+    },
+    changeActiveinvLeave() {
+      if (this.isActiveinv) {
+        this.isActiveinv = false;
+      }
     }
   },
   mounted() {
@@ -343,12 +391,16 @@ export default {
   text-align: right;
 }
 
-.menu-link {
+.menu-link,
+.menu-link-inventory {
   margin: 20px 20px;
   list-style: none;
   font-weight: bold;
   color: #ffffff;
   font-size: 18px;
+}
+.menu-link-inventory {
+  margin: 20px 10px 10px 10px;
 }
 .menu-link li {
   padding: 0 0 15px 0;
@@ -364,6 +416,26 @@ export default {
 }
 .menu-link li:hover i {
   transform: scale(1.5);
+}
+
+.menu-link-inventory li {
+  padding: 0 0 20px 0;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.menu-link-inventory li i {
+  color: #5a5a5a;
+  font-size: 14px;
+}
+.menu-link-inventory li:hover i {
+  /* transform: scale(1.2); */
+  font-size: 18px;
+}
+.menu-link-inventory li:hover {
+  /* transform: scale(1.2); */
+  opacity: 0.8;
+  transition: all 200ms ease-out;
 }
 
 .kgfd-header {
@@ -444,16 +516,6 @@ export default {
   width: 1000px;
   max-height: 300px;
 }
-/* #openMenu:hover + .acilir-menu {
-  display: block;
-  -webkit-transition: all 300ms ease-out;
-  transition: all 300ms ease-out;
-} */
-
-/* #openMenu:hover #icons {
-  transform: translate(0) rotate(180deg);
-  transition: all 300ms ease-out;
-} */
 
 .iconActive {
   transform: translate(0) rotate(180deg);
@@ -463,16 +525,32 @@ export default {
   transform: translate(0) rotate(0deg);
   transition: all 300ms ease-out;
 }
-/* .acilir-menu:hover i {
-  transform: translate(0) rotate(180deg);
-  transition: all 300ms ease-out;
-} */
+
 .acilir-menu:hover {
   display: block;
   -webkit-transition: all 300ms ease-out;
   transition: all 300ms ease-out;
 }
 
+.acilir-menu-inventory {
+  position: absolute;
+  width: 200px;
+  height: 0;
+  top: 42px;
+  left: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #86bde2 transparent;
+  background-color: #86bde2;
+  box-shadow: 1px 1px 13px 2px #aac7db;
+  border-radius: 0 0 4px 4px;
+  transition: all 300ms ease-out;
+  z-index: 1;
+}
+
+.activeMenuinv {
+  height: 200px;
+}
 .hava-durum-name {
   position: absolute;
   left: 250px;

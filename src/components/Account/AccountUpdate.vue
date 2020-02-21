@@ -42,7 +42,7 @@
       <div class="kgfd-col kgfd-col-2">
         <div class="kgfd-formbox">
           <label for>ConfirmPassword</label>
-          <input :type="type" class="kgfd-form-input" v-model="account.confirmPassword"/>
+          <input :type="type" class="kgfd-form-input" v-model="account.confirmPassword" />
           <a @click="ShowPassword()" class="showhidebtn" v-html="btn"></a>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default {
         password: "",
         confirmPassword: "",
         age: "",
-        role: ""
+        role: "",
       },
       msg: "",
       btn: eye,
