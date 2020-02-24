@@ -171,6 +171,13 @@
               <span v-on:click="disabledAccount(disabledUser)">Hesabı Dondur</span>
             </el-dropdown-item>
             <el-dropdown-item>
+              <router-link
+                to="/Doviz-Kur-Al"
+                style="text-decoration:none; color:inherit;"
+              >Doviz İşlemleri</router-link>
+            </el-dropdown-item>
+
+            <el-dropdown-item>
               <span v-on:click="logout()">Logout</span>
             </el-dropdown-item>
           </el-dropdown-menu>

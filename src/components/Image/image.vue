@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top:500px;">
+  <div>
     <header class="header">
       <div class="text-box">
         <h1 class="heading-primary">

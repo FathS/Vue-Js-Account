@@ -15,6 +15,7 @@ import Inventory from '../components/Inventory/inventory.vue'
 import InventoryAdd from '../components/Inventory/inventoryAdd.vue'
 import InventoryUser from '../components/Inventory/inventoryAccount.vue'
 import children from '../components/children.vue'
+import DovizAl from '../components/View/KurAl.vue'
 
 
 Vue.use(Router)
@@ -86,6 +87,10 @@ export default new Router({
       component: HavaDurum,
     },
     {
+      path: '/Doviz-Kur-Al',
+      component: DovizAl,
+    },
+    {
       path: '/:id/edit',
       name: 'detail',
       component: TodosDetail
@@ -96,7 +101,7 @@ export default new Router({
       component: AccountDetail
     },
     {
-      path: '/:id/?=+wawq213/:name/detail-inventory',
+      path: '/:id/:name/detail-inventory/ucak-kazasi-haberleri-sarhos-pilot',
       name: 'UserInventory',
       component: InventoryUser,
     },
