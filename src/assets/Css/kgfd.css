@@ -7,12 +7,15 @@
     image-rendering: -webkit-optimize-contrast;
     margin: 0;
     padding: 0;
+    
 }
 .kgfd table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
+html{
+    scroll-behavior: smooth;
+}
 
 /* open-sans-300 - latin-ext_latin */
 @font-face {

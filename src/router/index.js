@@ -13,6 +13,10 @@ import Account from '../components/Account/AccountList.vue'
 import HavaDurum from '../components/View/HavaDurum.vue'
 import Inventory from '../components/Inventory/inventory.vue'
 import InventoryAdd from '../components/Inventory/inventoryAdd.vue'
+import InventoryUser from '../components/Inventory/inventoryAccount.vue'
+import children from '../components/children.vue'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -26,6 +30,13 @@ export default new Router({
       meta: {
         requiresAuth: true
       },
+      children: [
+        {
+          path: '/childrentest',
+          name: 'chidrenTest',
+          component: children
+        }
+      ]
     },
     {
       path: '/Todoslist',
@@ -83,6 +94,11 @@ export default new Router({
       path: '/:id/edit',
       name: 'detailAccount',
       component: AccountDetail
+    },
+    {
+      path: '/:id/?=+wawq213/:name/detail-inventory',
+      name: 'UserInventory',
+      component: InventoryUser,
     },
     // { path: '/', redirect: { name: 'home' } },
     // { path: '*', redirect: { name: 'home' } }

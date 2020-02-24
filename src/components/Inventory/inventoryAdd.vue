@@ -73,11 +73,9 @@ export default {
         .then(response => {
           this.msg = response.data;
         })
-        .catch(
-          error(x => {
-            this.msg = error.response.data;
-          })
-        );
+        .catch(error => {
+          this.msg = error.response.data;
+        });
     }
   }
 };

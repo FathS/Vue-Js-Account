@@ -85,6 +85,7 @@
               <th style="text-align:center;">Sil</th>
               <th>Hesap Durum</th>
               <th>Resim</th>
+              <th>Envanter Listesi</th>
             </tr>
           </thead>
           <tbody>
@@ -145,6 +146,11 @@
               <td>
                 <img src="../../assets/images/cloud.png" width="20px;" />
                 <!-- <img :src="getImgUrl(account.image)" alt="haha" width="20px;" /> -->
+              </td>
+              <td>
+                <router-link
+                  :to="{ name:'UserInventory', params: { id: account.id, name:account.name +  account.surname}}"
+                >Envanterim</router-link>
               </td>
             </tr>
           </tbody>

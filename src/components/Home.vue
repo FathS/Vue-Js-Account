@@ -2,8 +2,14 @@
   <div class="kgfd">
     <div class="kgfd-row">
       <div class="kgfd-col kgfd-col-12 kgfd-grid-nopadding kgfd-col-m12 kgfd-col-s12">
-        <p style="font-weight:bold;" v-if="token">Sayın {{name}} Sayfaya Hoş Geldin</p>
-        <component :is="selected"></component>
+        <!-- <router-link to="/childrentest">
+          <p style="font-weight:bold;" v-if="token">Sayın {{name}} Sayfaya Hoş Geldin</p>
+        </router-link>-->
+        <a class="trans" href="#link1">
+          <p style="font-weight:bold;" v-if="token">Sayın {{name}} Sayfaya Hoş Geldin</p>
+        </a>
+        <component id="link1" :is="selected"></component>
+        <router-view />
       </div>
     </div>
   </div>
@@ -74,5 +80,8 @@ export default {
   width: 150px;
   height: 50px;
   z-index: 1;
+}
+.trans {
+  transition: all 300ms ease;
 }
 </style>
