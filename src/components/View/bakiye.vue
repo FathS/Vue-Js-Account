@@ -1,0 +1,93 @@
+<template>
+  <div>
+    <h2>Hesap Bakiye</h2>
+    <span class="inline-block">TL Bakiye: ₺{{userBakiye.tl}}</span>
+    <span class="inline-block">USD Bakiye: ${{userBakiye.usd}}</span>
+    <span class="inline-block">ERUO Bakiye: €{{userBakiye.euro}}</span>
+    <br />
+    <br />
+    <div v-if="bakiye">
+      <h2>Hesap Hareketleri</h2>
+      <table class="kgfd-table">
+        <thead>
+          <tr>
+            <th>Satın Alınan Dolar veya Euro</th>
+            <th>Satın Alınan ₺</th>
+            <th>Satılan ₺</th>
+            <th>Satılan €</th>
+            <th>Satılan $</th>
+            <th>$ Kur</th>
+            <th>€ Kur</th>
+            <th>Tarih</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in hareketList" :key="item.id">
+            <td v-if="item.dolarKur > 0">$ {{item.buyUsd}}</td>
+            <td v-else>€ {{item.buyUsd}}</td>
+            <td>₺ {{item.buyTl}}</td>
+            <td>₺ {{item.sellTl}}</td>
+            <td>₺ {{item.selleuro}}</td>
+            <td>₺ {{item.sellUsd}}</td>
+            <td>$ {{item.dolarKur}}</td>
+            <td>€ {{item.euroKur}}</td>
+            <td>{{item.date}}</td>
+          </tr>
+        </tbody>
+        <h4>{{msg}}</h4>
+      </table>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      userBakiye: {},
+      hareketList: [],
+      msg: "",
+      bakiye: true
+    };
+  },
+  created() {
+    this.getUser();
+    this.getHareketList();
+  },
+  methods: {
+    getUser() {
+      this.$axios
+        .get("Account/getBakiye/" + this.$store.getters.getUserId)
+        .then(response => {
+          this.userBakiye = response.data;
+        })
+        .catch(error => {});
+    },
+    getHareketList() {
+      this.$axios
+        .get("Account/getHesapHareket/" + this.$store.getters.getUserId)
+        .then(response => {
+          this.hareketList = response.data;
+        })
+        .catch(error => {
+          this.msg = error.response.data;
+          if (error.response.data == "Hesap Hareketi Bulunamadı") {
+            this.bakiye = false;
+          }
+        });
+    }
+  }
+};
+</script>
+<style scoped>
+span.inline-block {
+  display: block;
+}
+.kgfd-table tbody tr:hover{
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+.kgfd-table tbody tr:nth-child(odd){
+  background-color: #f7f7f7;  
+  cursor: pointer;
+}
+</style>

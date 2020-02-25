@@ -512,6 +512,7 @@ a.kgfd-btn {
     font-size: 1.1rem;
     width: 50px;
     height: 50px;
+    cursor: pointer;
 }
 .kgfd-btn-act.kgfd-btn-small {
     line-height: 28px;
@@ -587,7 +588,9 @@ table.kgfd-table td {
 table.kgfd-table thead tr th i {
     cursor: pointer;
 }
-
+.kgfd-table::before{
+    content:''
+}
 
 table.kgfd-table tbody tr {
     border-top: 1px solid;

@@ -172,9 +172,9 @@
             </el-dropdown-item>
             <el-dropdown-item>
               <router-link
-                to="/Doviz-Kur-Al"
+                :to="{name:'doviz'}"
                 style="text-decoration:none; color:inherit;"
-              >Doviz İşlemleri</router-link>
+              >Doviz İşlemleri / Bakiyem</router-link>
             </el-dropdown-item>
 
             <el-dropdown-item>
@@ -365,6 +365,9 @@ export default {
     },
     role() {
       return this.$store.getters.getRole;
+    },
+    userId() {
+      return this.$store.getters.getUserId;
     }
   },
   created() {

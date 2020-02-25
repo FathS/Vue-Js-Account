@@ -87,8 +87,9 @@ export default new Router({
       component: HavaDurum,
     },
     {
-      path: '/Doviz-Kur-Al',
+      path: '/Doviz-Satin-Al-Sat-Euro-Dolar',
       component: DovizAl,
+      name: 'doviz'
     },
     {
       path: '/:id/edit',
