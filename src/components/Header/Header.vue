@@ -128,22 +128,28 @@
         </div>
       </div>
       <div class="kgfd-col kgfd-text-right kgfd-grid-nomargin">
-        <span v-for="item in hava" :key="item" class="hava-durum-name">
+        <!-- <span v-for="item in hava" :key="item" class="hava-durum-name">
           {{item.il}}
           <span style="display:block;">
             {{item.mak}}
             <img width="15" src="../../assets/images/hot.png" />
           </span>
         </span>
-        <img class="hava-durum-img" src="../../assets/images/cloud.png" width="20px;" alt />
-        <ul class="kgfd-doviz" v-for="item in dovizs" :key="item">
+        <img class="hava-durum-img" src="../../assets/images/cloud.png" width="20px;" alt />-->
+        <ul class="kgfd-doviz">
           <li>
-            $:
-            <span>{{item.dolar}}</span>
+            Dolar:
+            Satış
+            <span>{{doviz.dolar}}</span>
+            Alış
+            <span>{{doviz.dolarAlis}}</span>
           </li>
           <li>
-            €:
-            <span>{{item.euro}}</span>
+            Euro:
+            Satış
+            <span>{{doviz.euro}}</span>
+            Alış
+            <span>{{doviz.euroAlis}}</span>
           </li>
         </ul>
 
@@ -239,7 +245,7 @@ const close = '<i class="fa fa-times" aria-hidden="true"></i>';
 export default {
   data() {
     return {
-      dovizs: [],
+      doviz: {},
       isSign: false,
       mystyle: {
         display: "block",
@@ -269,7 +275,7 @@ export default {
       this.$axios
         .get("Doviz/Index")
         .then(response => {
-          this.dovizs = response.data;
+          this.doviz = response.data;
           console.log(response.data);
         })
         .catch(error => {

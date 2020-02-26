@@ -1,6 +1,6 @@
 <template>
   <div class="kgfd">
-    <div class="kgfd-row">
+    <div class="kgfd-row kgfd-col-align-right">
       <div class="kgfd-col kgfd-col-12 kgfd-grid-nopadding kgfd-col-m12 kgfd-col-s12">
         <!-- <router-link to="/childrentest">
           <p style="font-weight:bold;" v-if="token">Sayın {{name}} Sayfaya Hoş Geldin</p>
@@ -10,12 +10,16 @@
         </a>
         <component id="link1" :is="selected"></component>
         <router-view />
+        <div class="kgfd-row kgfd-col-align-right">
+          <Doviz />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import images from "../components/Image/image";
+import Doviz from "../components/View/doviz.vue";
 import AuthService from "../services/AuthService";
 const hamburgers = '<i class="fa fa-bars" aria-hidden="true"></i>';
 const close = '<i class="fa fa-times" aria-hidden="true"></i>';
@@ -50,7 +54,8 @@ export default {
     }
   },
   components: {
-    "app-images": images
+    "app-images": images,
+    Doviz
   },
   created() {
     this.tokenExpire();

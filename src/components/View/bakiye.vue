@@ -3,7 +3,7 @@
     <h2>Hesap Bakiye</h2>
     <span class="inline-block">TL Bakiye: ₺{{userBakiye.tl}}</span>
     <span class="inline-block">USD Bakiye: ${{userBakiye.usd}}</span>
-    <span class="inline-block">ERUO Bakiye: €{{userBakiye.euro}}</span>
+    <span class="inline-block">EURO Bakiye: €{{userBakiye.euro}}</span>
     <br />
     <br />
     <div v-if="bakiye">
@@ -27,8 +27,8 @@
             <td v-else>€ {{item.buyUsd}}</td>
             <td>₺ {{item.buyTl}}</td>
             <td>₺ {{item.sellTl}}</td>
-            <td>₺ {{item.selleuro}}</td>
-            <td>₺ {{item.sellUsd}}</td>
+            <td>€ {{item.selleuro}}</td>
+            <td>$ {{item.sellUsd}}</td>
             <td>$ {{item.dolarKur}}</td>
             <td>€ {{item.euroKur}}</td>
             <td>{{item.date}}</td>

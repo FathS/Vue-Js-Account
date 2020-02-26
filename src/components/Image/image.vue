@@ -10,14 +10,226 @@
         <a href="JavaScript:Void(0);" class="btn btn-white btn-animated">Discovery Our Tours</a>
       </div>
     </header>
+    <button class="kgfd-btn kgfd-btn-default" style="margin:20px 0;" @click="test = !test">
+      <span v-if="!test">Başlat</span>
+      <span v-else>Durdur</span>
+    </button>
 
-    <div class="perde">
-      <img class="element" src="../../assets/images/expresso.jpg" alt="expresso" />
+    <div :class="{animation: test}" class="square" style="margin-bottom:50px;">
+      <p>Fatih</p>
     </div>
-    <p>Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır. Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı zamanda pek değişmeden elektronik dizgiye de sıçramıştır. 1960'larda Lorem Ipsum pasajları da içeren Letraset yapraklarının yayınlanması ile ve yakın zamanda Aldus PageMaker gibi Lorem Ipsum sürümleri içeren masaüstü yayıncılık yazılımları ile popüler olmuştur.Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir. Lorem Ipsum kullanmanın amacı, sürekli 'buraya metin gelecek, buraya metin gelecek' yazmaya kıyasla daha dengeli bir harf dağılımı sağlayarak okunurluğu artırmasıdır.</p>
+
+    <!-- <div class="kafa">
+      <div class="goz">
+        <div class="govde">
+          <div class="dalga"></div>
+        </div>
+        <div class="kol"></div>
+      </div>
+    </div>
+    <div class="got">M</div>
+
+    <div class="kafa2">
+      <div class="goz2">
+        <div class="govde2">
+          <div class="dalga2"></div>
+        </div>
+        <div class="kol2"></div>
+      </div>
+    </div>
+    <div class="got2">M</div> -->
+
+    
+
+    <!-- <div class="kgfd-col kgfd-col-6">
+      <div class="perde">
+        <img class="element" src="../../assets/images/expresso.jpg" alt="expresso" />
+      </div>
+      <p>Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır. Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı zamanda pek değişmeden elektronik dizgiye de sıçramıştır. 1960'larda Lorem Ipsum pasajları da içeren Letraset yapraklarının yayınlanması ile ve yakın zamanda Aldus PageMaker gibi Lorem Ipsum sürümleri içeren masaüstü yayıncılık yazılımları ile popüler olmuştur.Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir. Lorem Ipsum kullanmanın amacı, sürekli 'buraya metin gelecek, buraya metin gelecek' yazmaya kıyasla daha dengeli bir harf dağılımı sağlayarak okunurluğu artırmasıdır.</p>
+    </div>-->
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      test: true
+    };
+  }
+};
+</script>
 <style scoped>
+.kafa2 {
+  position: absolute;
+  bottom: 100px;
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  background: #e4d0bd;
+  animation: yatay 1s linear infinite;
+}
+.goz2 {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  height: 5px;
+  width: 5px;
+  border-radius: 10px;
+  background: black;
+}
+.govde2 {
+  position: absolute;
+  bottom: 0px;
+  left: 17px;
+  height: 4px;
+  width: 60px;
+  background: #f1d6bb;
+}
+
+.dalga2 {
+  position: absolute;
+  bottom: 3px;
+  left: 35px;
+  height: 27px;
+  width: 7px;
+  background: black;
+  border-radius: 8px 8px 0px 0px;
+}
+.got2 {
+  position: absolute;
+  left: 52px;
+  bottom: 140px;
+  font-size: 35px;
+  transform: rotate(180deg);
+  font-weight: bold;
+  /* animation: oynat2 3s linear infinite; */
+}
+.kafa {
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  background: #e4d0bd;
+}
+.goz {
+  position: absolute;
+  bottom: 355px;
+  left: 12px;
+  height: 5px;
+  width: 5px;
+  border-radius: 10px;
+  background: black;
+}
+.govde {
+  position: absolute;
+  bottom: -55px;
+  height: 40px;
+  width: 4px;
+  background: #f1d6bb;
+}
+.kol {
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  background: black;
+  top: 30px;
+  transform: rotate(20deg);
+  animation: kol 3s linear infinite;
+}
+.dalga {
+  position: absolute;
+  bottom: 10px;
+  left: 3px;
+  height: 7px;
+  width: 25px;
+  background: black;
+  border-radius: 0px 8px 8px 0px;
+  animation: ileri 2s linear infinite;
+}
+.got {
+  position: absolute;
+  left: 25px;
+  bottom: 290px;
+  font-size: 35px;
+  transform: rotate(270deg);
+  font-weight: bold;
+  animation: oynat 3s linear infinite;
+}
+
+/* @keyframes ileri {
+  0% {
+    width: 30px;
+  }
+
+  50% {
+    width: 40px;
+  }
+  75% {
+    width: 30px;
+  }
+  100% {
+    width: 40px;
+  }
+} */
+@keyframes oynat {
+  0% {
+    left: 25px;
+  }
+
+  50% {
+    left: 15px;
+  }
+  75% {
+    left: 25px;
+  }
+  100% {
+    left: 15px;
+  }
+}
+@keyframes oynat2 {
+  0% {
+    bottom: 140px;
+  }
+
+  50% {
+    bottom: 128px;
+  }
+  75% {
+    bottom: 140px;
+  }
+  100% {
+    bottom: 128px;
+  }
+}
+@keyframes kol {
+  0% {
+    width: 20px;
+  }
+
+  50% {
+    width: 15px;
+  }
+  75% {
+    width: 20px;
+  }
+  100% {
+    width: 14px;
+  }
+}
+@keyframes yatay {
+  0% {
+    bottom: 120px;
+  }
+
+  50% {
+    bottom: 140px;
+  }
+  75% {
+    bottom: 130px;
+  }
+  100% {
+    bottom: 140px;
+  }
+}
 .element {
   width: 280px;
   height: 250px;
@@ -243,5 +455,50 @@ p {
     rgba(148, 187, 233, 1) 0%,
     rgba(238, 174, 202, 1) 100%
   );
+}
+
+.square {
+  height: 100px;
+  width: 100px;
+  background: red;
+  border: 1px dotted #302e2e;
+  border-radius: 30px;
+
+  padding: 40px 20px 40px 20px;
+  text-align: center;
+}
+.square.animation {
+  animation: squares 4s linear infinite;
+}
+@keyframes squares {
+  0% {
+    opacity: 0.2;
+    transform: rotate(0deg) scale(1);
+  }
+
+  35% {
+    opacity: 0.4;
+    transform: scale(1.4) translateX(100px);
+  }
+  70% {
+    opacity: 0.6;
+    transform: rotate(360deg) scale(1.9);
+  }
+  80% {
+    opacity: 0.6;
+    transform: translateX(-100px) scale(1.4);
+  }
+  85% {
+    opacity: 0.6;
+    transform: rotate(0deg) scale(1.5);
+  }
+  90% {
+    opacity: 0.6;
+    transform: rotate(-360deg) scale(1.3);
+  }
+  100% {
+    opacity: 0.9;
+    transform: rotate(0deg) scale(1.8);
+  }
 }
 </style>

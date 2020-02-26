@@ -1,7 +1,7 @@
 <template>
   <div class="kgfd">
     <div class="kgfd-row">
-      <div class="kgfd-col kgfd-col-3">
+      <div class="kgfd-col kgfd-col-2" style="margin-top:20px;">
         <div class="kgfd-formbox">
           <h1>Doviz Satın Al</h1>
 
@@ -20,11 +20,15 @@
           <a
             class="kgfd-btn-act kgfd-btn-big button"
             @click="selectedComponent = 'doviz-sat'"
+            v-if="selectedComponent == ''"
           >Döviz Bozdurmak İçin Tıklayın</a>
         </div>
         <component :is="selectedComponent"></component>
       </div>
-      <div class="kgfd-col kgfd-col-8 kgfd-card" style="margin:20px 0 20px auto;">
+      <div class="kgfd-col kgfd-col-3" style="margin-top:20px;">
+        <Doviz />
+      </div>
+      <div class="kgfd-col kgfd-col-7 kgfd-card">
         <Bakiye />
       </div>
     </div>
@@ -34,6 +38,7 @@
 import { serverBus } from "../../main";
 import Bakiye from "../View/bakiye.vue";
 import DovizSat from "../View/dovizSat.vue";
+import Doviz from "../View/doviz.vue";
 export default {
   data() {
     return {
@@ -68,7 +73,8 @@ export default {
   },
   components: {
     Bakiye,
-    "doviz-sat": DovizSat
+    "doviz-sat": DovizSat,
+    Doviz
   },
   mounted() {
     serverBus.$on("selectedComponent", selectedComponent => {

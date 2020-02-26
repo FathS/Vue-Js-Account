@@ -2,15 +2,17 @@
   <div>
     <div class="kgfd-formbox">
       <h1>Doviz Bozdur</h1>
-      <el-select v-model="birim" placeholder="Bozdurmak İstediğiniz Dovizi Seçin">
+      <el-select v-model="birim" placeholder=" Doviz Seçin">
         <el-option label="Dolar" value="Dolar"></el-option>
         <el-option label="Euro" value="Euro"></el-option>
       </el-select>
-      <label for>Bozdurmak İstediğiniz TL Tutarı</label>
-      <input type="number" class="kgfd-form-input" v-model="döviz" />
+      {{birimMsg}}
+      <label for>Bozdurmak İstediğiniz {{birim}} Tutar</label>
+      <input type="text" class="kgfd-form-input" v-model="döviz" @keyup="deneme()" />
+      <p style="color:red;">{{warning}}</p>
     </div>
     <div class="kgfd-formbox">
-      <button class="kgfd-btn kgfd-btn-primary" @click="DovizSat()">Bozdur</button>
+      <button class="kgfd-btn kgfd-btn-primary" :disabled="disabled" @click="DovizSat()">Bozdur</button>
       <button
         style="display:inline-block;"
         class="kgfd-btn kgfd-btn-warning"
@@ -28,13 +30,24 @@ export default {
       selectedComponent: "",
       id: this.$store.getters.getUserId,
       birim: "",
-      döviz: "",
-      msg: ""
+      döviz: 0,
+      msg: "",
+      warning: "",
+      disabled: false
     };
   },
   methods: {
     cancel() {
       serverBus.$emit("selectedComponent", this.selectedComponent);
+    },
+    deneme() {
+      if (this.döviz <= 2) {
+        this.warning = "2,00 " + this.birim + "'dan büyük tutar girmelisiniz.";
+        this.this.disabled = true;
+      } else {
+        this.warning = "";
+        this.disabled = false;
+      }
     },
     DovizSat(id, döviz, birim) {
       this.$axios
@@ -53,7 +66,13 @@ export default {
         });
     }
   },
-  created() {}
+  created() {
+    if (this.döviz < 2) {
+      this.disabled = true;
+    } else {
+      this.disabled = false;
+    }
+  }
 };
 </script>
 <style scoped>

@@ -56,5 +56,5 @@ new Vue({
       this.$router.push("/login");
     }
   },
-  
+
 }).$mount('#app')
