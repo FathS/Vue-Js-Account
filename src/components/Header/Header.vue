@@ -1,5 +1,5 @@
 <template>
-  <div class="kgfd" style="padding:0; ">
+  <div class="kgfd" style="padding:0;">
     <div class="kgfd-row kgfd-header">
       <div class="kgfd-col kgfd-grid-nomargin">
         <router-link to="/" active-class="active" exact>
@@ -235,6 +235,9 @@
         </li>
       </ul>
     </div>
+    <a href="#" class="scrool-top" :class="{scrooltopshow:scroolActive == 1}">
+      <span>Test</span>
+    </a>
   </div>
 </template>
 <script>
@@ -247,6 +250,7 @@ export default {
     return {
       doviz: {},
       isSign: false,
+      scroolActive: 0,
       mystyle: {
         display: "block",
         cursor: "pointer"
@@ -281,6 +285,13 @@ export default {
         .catch(error => {
           window.alert(error.response.data);
         });
+    },
+    scroolShow() {
+      if (window.scrollY > 20) {
+        this.scroolActive = 1;
+      } else {
+        this.scroolActive = 0;
+      }
     },
     getHavaDurum(cityName) {
       this.$axios
@@ -379,10 +390,31 @@ export default {
   created() {
     this.getDoviz();
     this.getHavaDurum();
+    this.scroolShow();
   }
 };
 </script>
 <style scoped>
+.scrool-top {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  text-align: center;
+  line-height: 70px;
+  background-color: #51d8f0;
+  color: #ffffff;
+  font-weight: bold;
+  display: block;
+  z-index: 10;
+  cursor: pointer;
+  display: none;
+}
+.scrooltopshow {
+  display: block;
+}
 .menuslide {
   background-color: #86bde2;
   position: fixed;

@@ -24,6 +24,7 @@
           >Döviz Bozdurmak İçin Tıklayın</a>
         </div>
         <component :is="selectedComponent"></component>
+        <Altin />
       </div>
       <div class="kgfd-col kgfd-col-3" style="margin-top:20px;">
         <Doviz />
@@ -39,6 +40,7 @@ import { serverBus } from "../../main";
 import Bakiye from "../View/bakiye.vue";
 import DovizSat from "../View/dovizSat.vue";
 import Doviz from "../View/doviz.vue";
+import Altin from "../View/altin.vue";
 export default {
   data() {
     return {
@@ -74,7 +76,8 @@ export default {
   components: {
     Bakiye,
     "doviz-sat": DovizSat,
-    Doviz
+    Doviz,
+    Altin
   },
   mounted() {
     serverBus.$on("selectedComponent", selectedComponent => {

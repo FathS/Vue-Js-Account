@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header />
+    
     <!-- Transiton Name kaldırırsak slide geçişli olmaz! -->
     <transition name="slide" mode="out-in">
       <router-view />
@@ -29,7 +30,6 @@ export default {
             this.tokenExpire();
           }, 1000);
         } else {
-          
           window.alert(
             "Oturum süreniz bitmiştir. Lütfen Tekrar Giriş Yapınız."
           );
@@ -54,6 +54,7 @@ export default {
 </script>
 
 <style>
+
 .fade-enter {
   opacity: 0;
 }
