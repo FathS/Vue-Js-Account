@@ -16,6 +16,7 @@ import InventoryAdd from '../components/Inventory/inventoryAdd.vue'
 import InventoryUser from '../components/Inventory/inventoryAccount.vue'
 import children from '../components/children.vue'
 import DovizAl from '../components/View/KurAl.vue'
+import about from '../components/About.vue'
 
 
 Vue.use(Router)
@@ -48,6 +49,10 @@ export default new Router({
         onlyWhenLoggedOut: true
       }
 
+    },
+    {
+      path: '/aboutUS',
+      component: about
     },
     {
       path: '/register',

@@ -5,6 +5,9 @@ import axios from 'axios'
 import Element from 'element-ui'
 import Vuelidate from 'vuelidate'
 import { store } from './store/store'
+import ECharts from 'vue-echarts'
+import 'echarts/lib/chart/bar';
+
 
 
 // set auth header
@@ -42,6 +45,7 @@ import './assets/Css/kgfd-theme.css'
 
 Vue.use(Element)
 Vue.use(Vuelidate)
+Vue.component('v-chart', ECharts)
 
 
 

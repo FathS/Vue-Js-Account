@@ -5,6 +5,9 @@
         <router-link to="/" active-class="active" exact>
           <div class="link-btn">Home</div>
         </router-link>
+        <router-link to="/aboutUS" active-class="active" exact>
+          <div class="link-btn">About US</div>
+        </router-link>
         <router-link v-if="token" to="/Todoslist" active-class="active">
           <div class="link-btn">User</div>
         </router-link>
@@ -78,6 +81,7 @@
                 Home
               </router-link>
             </li>
+
             <li>
               <router-link to="/Todoslist">
                 <i class="fa fa-users" aria-hidden="true"></i>
@@ -235,8 +239,8 @@
         </li>
       </ul>
     </div>
-    <a href="#" class="scrool-top" :class="{scrooltopshow:scroolActive == 1}">
-      <span>Test</span>
+    <a id="scrolTop" href="#">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
     </a>
   </div>
 </template>
@@ -370,6 +374,20 @@ export default {
     serverBus.$on("isSign", isSign => {
       this.isSign = isSign;
     });
+    window.onscroll = function() {
+      scrollFunction();
+    };
+
+    function scrollFunction() {
+      if (
+        document.body.scrollTop > 50 ||
+        document.documentElement.scrollTop > 50
+      ) {
+        document.getElementById("scrolTop").style.display = "block";
+      } else {
+        document.getElementById("scrolTop").style.display = "none";
+      }
+    }
   },
   //storeden gelen token i burada değişken olarak kullanmak için yazılan computed methodu
   computed: {
@@ -395,25 +413,39 @@ export default {
 };
 </script>
 <style scoped>
-.scrool-top {
+#scrolTop {
   position: fixed;
-  bottom: 10px;
+  bottom: 20px;
   right: 10px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50px;
-  text-align: center;
-  line-height: 70px;
-  background-color: #51d8f0;
-  color: #ffffff;
-  font-weight: bold;
-  display: block;
-  z-index: 10;
-  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #86bde2;
+  border-radius: 30px;
   display: none;
+  cursor: pointer;
+  animation: opacityScroll 1s ease;
+  z-index: 999;
+  text-align: center;
+  color: #ffffff;
+  font-size: 22px;
+  line-height: 45px;
+  font-weight: bold;
 }
-.scrooltopshow {
-  display: block;
+#scrolTop:hover {
+  background-color: #70b3df;
+}
+@keyframes opacityScroll {
+  0% {
+    opacity: 0;
+    width: 80px;
+    height: 80px;
+  }
+
+  100% {
+    opacity: 1;
+    width: 50px;
+    height: 50px;
+  }
 }
 .menuslide {
   background-color: #86bde2;

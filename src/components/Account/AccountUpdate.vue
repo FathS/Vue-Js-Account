@@ -25,8 +25,8 @@
         <div class="kgfd-formbox">
           <label>Hesap Durumu</label>
           <el-select v-model="account.isActive" placeholder="Hesap Durum">
-            <el-option v-if="account.isActive == true" :label="'Dondur'" value="False">Dondur</el-option>
-            <el-option v-if="account.isActive == false" :label="'Aktif Et'" value="True">Aktif Et</el-option>
+            <el-option :label="'Dondur'" value="False">Dondur</el-option>
+            <el-option :label="'Aktif Et'" value="True">Aktif Et</el-option>
           </el-select>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default {
         password: "",
         confirmPassword: "",
         age: "",
-        role: "",
+        role: ""
       },
       msg: "",
       btn: eye,

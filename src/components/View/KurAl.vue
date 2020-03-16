@@ -25,6 +25,7 @@
         </div>
         <component :is="selectedComponent"></component>
         <Altin />
+        <Chart />
       </div>
       <div class="kgfd-col kgfd-col-3" style="margin-top:20px;">
         <Doviz />
@@ -41,6 +42,7 @@ import Bakiye from "../View/bakiye.vue";
 import DovizSat from "../View/dovizSat.vue";
 import Doviz from "../View/doviz.vue";
 import Altin from "../View/altin.vue";
+import Chart from "../View/charts.vue";
 export default {
   data() {
     return {
@@ -77,7 +79,8 @@ export default {
     Bakiye,
     "doviz-sat": DovizSat,
     Doviz,
-    Altin
+    Altin,
+    Chart
   },
   mounted() {
     serverBus.$on("selectedComponent", selectedComponent => {

@@ -7,9 +7,9 @@
     <span class="inline-block">Altın Bakiye: {{userBakiye.altin}} Gr.</span>
     <br />
     <br />
-    <div v-if="bakiye">
+    <div>
       <h2>Hesap Hareketleri</h2>
-      <table class="kgfd-table" style="margin-bottom:100px;">
+      <table v-if="bakiye" class="kgfd-table" style="margin-bottom:100px;">
         <thead>
           <tr>
             <th>Satın Alınan Dolar veya Euro</th>
@@ -38,19 +38,20 @@
             <td>{{item.date}}</td>
           </tr>
         </tbody>
-        <h4>{{msg}}</h4>
       </table>
+      <h4>{{msg}}!</h4>
     </div>
   </div>
 </template>
 <script>
+
 export default {
   data() {
     return {
       userBakiye: {},
       hareketList: [],
       msg: "",
-      bakiye: true
+      bakiye: false
     };
   },
   created() {
@@ -71,6 +72,7 @@ export default {
         .get("Account/getHesapHareket/" + this.$store.getters.getUserId)
         .then(response => {
           this.hareketList = response.data;
+          this.bakiye = true;
         })
         .catch(error => {
           this.msg = error.response.data;
