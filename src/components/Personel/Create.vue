@@ -191,7 +191,7 @@ export default {
         this.managerList = response.data;
       });
     }
-  },
+  }
 };
 </script>
 <style scoped >

@@ -40,12 +40,9 @@
                   </td>
                 </router-link>
                 <td style="text-align:center;">
-                  <i
-                    class="fa fa-trash"
-                    aria-hidden="true"
-                    v-on:click="Delete(item.id)"
-                    style="cursor:pointer;"
-                  ></i>
+                  <router-link :to="{name: 'deleteper', params:{id:item.id}}">
+                    <i class="fa fa-trash" aria-hidden="true" style="cursor:pointer;"></i>
+                  </router-link>
                 </td>
               </tr>
             </tbody>
@@ -67,6 +64,19 @@ div.card {
   overflow-x: auto;
   width: 100%;
 }
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+  opacity: 0.4;
+  display: none;
+}
+.activepop {
+  display: block;
+}
 </style>
 <script>
 import userCreate from "./Create.vue";
@@ -75,7 +85,9 @@ export default {
   data() {
     return {
       todosList: [],
-      selectedComponent: ""
+      selectedComponent: "",
+      active: false,
+      msg: ""
     };
   },
   // mounted() {
@@ -91,16 +103,28 @@ export default {
       this.$axios.get("Home/Index/").then(response => {
         this.todosList = response.data;
       });
-    },
-    Delete(id) {
-      if (confirm("İşlemi Onaylıyor musunuz?")) {
-        this.$axios.post("Home/Delete/" + id);
-        window.alert("Kayıt Silindi!");
-        window.location.reload();
-      } else {
-        window.alert("İşlem İptal Edildi.");
-      }
     }
+    // Delete(id) {
+    //   if (confirm("İşlemi Onaylıyor musunuz?")) {
+    //     this.$axios.post("Home/Delete/" + id).then(response => {
+    //       this.msg = response.data;
+    //       window.alert(this.msg);
+    //       window.location.reload();
+    //     });
+    //   } else {
+    //     window.alert("İşlem İptal Edildi.");
+    //   }
+    // }
+    // Delete(id) {
+    //   this.active = true;
+    //   if (this.active) {
+    //     this.$axios.post("Home/Delete/" + id).then(response => {
+    //       this.msg = response.data;
+    //       window.alert(this.msg);
+    //       window.location.reload();
+    //     });
+    //   }
+    // }
   },
   computed: {
     actives() {

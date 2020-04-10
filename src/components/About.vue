@@ -2,13 +2,13 @@
   <div class="kgfd">
     <div class="kgfd-container" style="margin-bottom:900px;">
       <div class="kgfd-row">
-        <div class="kgfd-col kgfd-col-1">
+        <div class="kgfd-col kgfd-col-2">
           <div class="tab-btn" :class="{activebtn: activeTab == 1}" @click="TabChange(1)">Biz Kimiz?</div>
         </div>
-        <div class="kgfd-col kgfd-col-1">
+        <div class="kgfd-col kgfd-col-2">
           <div class="tab-btn" :class="{activebtn: activeTab == 2}" @click="TabChange(2)">Tarihçe</div>
         </div>
-        <div class="kgfd-col kgfd-col-1">
+        <div class="kgfd-col kgfd-col-2">
           <div class="tab-btn" :class="{activebtn: activeTab == 3}" @click="TabChange(3)">Ailemiz</div>
         </div>
       </div>
@@ -169,7 +169,7 @@ export default {
 }
 
 .activebtn {
-  border-bottom: 2px solid #86bde2;
+  border-bottom: 3px solid #86bde2;
   color: #3a3939;
   margin-top: 10px;
 }
@@ -217,6 +217,6 @@ export default {
 }
 
 .tab-accordion {
-  height: 120px;
+  height: 140px;
 }
 </style>

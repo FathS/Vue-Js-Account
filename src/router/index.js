@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import TodosList from '../components/Personel/List.vue'
+import deleteper from '../components/Personel/delete.vue'
 import TodosDetail from '../components/Personel/update.vue'
 import AccountDetail from '../components/Account/AccountUpdate.vue'
 import Register from '../components/Personel/register.vue'
@@ -17,6 +18,10 @@ import InventoryUser from '../components/Inventory/inventoryAccount.vue'
 import children from '../components/children.vue'
 import DovizAl from '../components/View/KurAl.vue'
 import about from '../components/About.vue'
+import CategoryCreate from '../components/EticaretView/Category.vue'
+import ProductCreate from '../components/EticaretView/Product.vue'
+import Products from '../components/EticaretView/ProductList.vue'
+import img from '../components/EticaretView/imagecreate.vue'
 
 
 Vue.use(Router)
@@ -51,8 +56,25 @@ export default new Router({
 
     },
     {
+      name:'deleteper',
+      path: '/delete/:id',
+      component: deleteper
+    },
+    {
       path: '/aboutUS',
       component: about
+    },
+    {
+      path: '/images',
+      component: img
+    },
+    {
+      path: '/Category-Create',
+      component: CategoryCreate
+    },
+    {
+      path: '/Product-Create',
+      component: ProductCreate
     },
     {
       path: '/register',
@@ -111,6 +133,12 @@ export default new Router({
       name: 'UserInventory',
       component: InventoryUser,
     },
+    {
+      path: '/Liste/:id',
+      name: 'productlist',
+      component: Products,
+    },
+
     // { path: '/', redirect: { name: 'home' } },
     // { path: '*', redirect: { name: 'home' } }
 

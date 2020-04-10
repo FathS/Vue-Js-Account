@@ -86,10 +86,11 @@
               <th>Hesap Durum</th>
               <th>Resim</th>
               <th>Envanter Listesi</th>
+              <th>Bakiye</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="account in resultQuery" :key="account.id">
+            <tr v-for="account in accounts" :key="account.id">
               <td>{{account.name}}</td>
               <td>{{account.surname}}</td>
               <td>
@@ -152,9 +153,15 @@
                   :to="{ name:'UserInventory', params: { id: account.id, name:account.name +  account.surname}}"
                 >Envanterim</router-link>
               </td>
+              <td>{{account.bakiye}}</td>
             </tr>
           </tbody>
         </table>
+        {{test}}
+        <p style="padding-left:20px; margin-top:30px; font-weight:bold;">
+          Toplam Kullanıcı Bakiyesi :
+          <span v-if="totalRequest != 0">{{totalRequest}}</span>
+        </p>
       </div>
     </div>
   </div>
@@ -179,7 +186,8 @@ export default {
     AccountList() {
       this.$axios.get("Admin/AccountList/" + this.id).then(response => {
         this.accounts = response.data;
-        console.log(response.data);
+        this.test = response.data.total;
+        console.log(this.test);
       });
     },
     activeList() {
@@ -242,6 +250,17 @@ export default {
       return {
         active: this.isActive
       };
+    },
+    // Listedeli Toplam Bakiyeyi Göstermen için yazılan computed metodu
+    totalRequest() {
+      return this.accounts.reduce((acc, item) => acc + item.bakiye, 0);
+    },
+
+    //Listedeki isActive false olanları getirmek için yazılan computed metodu
+    isactiveFalse() {
+      return this.accounts.filter(x => x.isActive == false);
+
+      console.log(accounts, "Active Olanlar");
     }
   }
 };

@@ -8,6 +8,21 @@
         <router-link to="/aboutUS" active-class="active" exact>
           <div class="link-btn">About US</div>
         </router-link>
+        <el-dropdown style="padding:10px 0;">
+          <span class="el-dropdown-link">
+            Kategoriler
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item v-for="item in categories" :key="item.categoryid">
+              <router-link
+                :to="{ name:'productlist', params: { id: item.categoryid}}"
+                style="text-decoration:none; color:inherit;"
+              >{{item.name}}</router-link>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
         <router-link v-if="token" to="/Todoslist" active-class="active">
           <div class="link-btn">User</div>
         </router-link>
@@ -106,12 +121,23 @@
                 Personel (Admin)
               </router-link>
             </li>
+            <router-link to="/Product-Create">
+              <li>
+                <i class="fa fa-chevron-right" aria-hidden="true"></i> Ürün Ekle
+              </li>
+            </router-link>
+            <router-link to="/Category-Create">
+              <li>
+                <i class="fa fa-chevron-right" aria-hidden="true"></i> Kategori Ekle
+              </li>
+            </router-link>
             <li>
               <router-link to="/HavaDurum">
                 <i class="fa fa-sun-o" aria-hidden="true"></i>
                 Hava Durumu
               </router-link>
             </li>
+
             <li>
               <i class="fa fa-futbol-o" aria-hidden="true"></i>
               Spor
@@ -239,20 +265,43 @@
         </li>
       </ul>
     </div>
+
     <a id="scrolTop" href="#">
       <i class="fa fa-arrow-up" aria-hidden="true"></i>
     </a>
+
+    <div id="scrool-top" @click="SelectedComponent = 'Popup'">
+      <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+    </div>
+    <component @SelectedComponent="SelectedComponent = $event" :is="SelectedComponent"></component>
+    <!-- <popup /> -->
+    <!-- <div id="popup" :class="{'active-popup' : activepopup }">
+      <div class="popup-content">
+        <div class="kgfd-row">
+          <div class="kgfd-col kgfd-col-12">
+            <p>Devam Etmek İstediğinize Emin misiniz?</p>
+          </div>
+        </div>
+        <div class="kgfd-row">
+          <div class="kgfd-col kgfd-col-12">
+            <button class="kgfd-btn kgfd-btn-primary">Evet</button>
+            <button @click="activepopup = false" class="kgfd-btn kgfd-btn-warning">Hayır</button>
+          </div>
+        </div>
+      </div>
+    </div>-->
   </div>
 </template>
 <script>
 import { serverBus } from "../../main";
 const hamburgers = '<i class="fa fa-bars" aria-hidden="true"></i>';
 const close = '<i class="fa fa-times" aria-hidden="true"></i>';
-
+import Popup from "../Header/Popup.vue";
 export default {
   data() {
     return {
       doviz: {},
+      categories: [],
       isSign: false,
       scroolActive: 0,
       mystyle: {
@@ -271,10 +320,11 @@ export default {
       tokenss: this.$store.state.token,
       clock: new Date().toDateString(),
       iconActive: false,
-      isActiveinv: false,
       cityname: "İSTANBUL",
-      hava: {}
-      // day: new Date()
+      hava: {},
+      activepopup: false,
+      // day: new Date(),
+      SelectedComponent: ""
     };
   },
 
@@ -368,6 +418,11 @@ export default {
       if (this.isActiveinv) {
         this.isActiveinv = false;
       }
+    },
+    CategoryList() {
+      this.$axios.get("Category/CategoryList").then(response => {
+        this.categories = response.data;
+      });
     }
   },
   mounted() {
@@ -377,7 +432,7 @@ export default {
     window.onscroll = function() {
       scrollFunction();
     };
-
+    this.CategoryList();
     function scrollFunction() {
       if (
         document.body.scrollTop > 50 ||
@@ -409,6 +464,9 @@ export default {
     this.getDoviz();
     this.getHavaDurum();
     this.scroolShow();
+  },
+  components: {
+    Popup
   }
 };
 </script>
@@ -447,6 +505,50 @@ export default {
     height: 50px;
   }
 }
+#scrool-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50px;
+  background-color: #34bfd1;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 300ms ease;
+  z-index: 999;
+}
+#scrool-top i {
+  line-height: 70px;
+  font-size: 26px;
+}
+#popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+  animation: popup 1s ease;
+}
+#popup .popup-content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  box-shadow: 1px 1px 5px 1px #f1f1f1f1;
+  border-radius: 7px;
+  padding: 20px 10px;
+}
+.active-popup {
+  display: block !important;
+}
+
 .menuslide {
   background-color: #86bde2;
   position: fixed;
